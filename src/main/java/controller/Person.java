@@ -23,7 +23,9 @@ public class Person {
 	}
 	
 	public String getName() {
+		System.out.println(":hello");
 		return name;
+		
 	}
 	
 	public void setName(String name) {
