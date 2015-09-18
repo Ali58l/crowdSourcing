@@ -23,6 +23,8 @@ public class Auction {
 	  private double basePrice;
 	  private Person winner;
 	  private double highestPirce;
+	  private int countProposals;
+	  
 	public int getId() {
 		return id;
 	}
@@ -83,9 +85,12 @@ public class Auction {
 	public void setHighestPirce(double highestPirce) {
 		this.highestPirce = highestPirce;
 	}
-	  
-	  
-	  
+	public int getCountProposals() {
+		return countProposals;
+	}
+	public void setCountProposals(int countProposals) {
+		this.countProposals = countProposals;
+	}  
 	  
 
 }
