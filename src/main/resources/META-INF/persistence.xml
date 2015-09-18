@@ -3,13 +3,15 @@
 <persistence-unit name="persistenceUnit" transaction-type="RESOURCE_LOCAL">
   <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <class>controller.Person</class>    
+        <class>controller.Proposals</class>
+        <class>controller.Auction</class>
     <properties>
         <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
         <property name="hibernate.hbm2ddl.auto" value="validate"/>
         <property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"/>
         <property name="hibernate.connection.charSet" value="UTF-8"/>
         <property name="hibernate.show_sql" value="true"/>
-        <!-- <property name="hibernate.hbm2ddl.auto" value="create"/>   -->    
+        <property name="hibernate.hbm2ddl.auto" value="create"/>    
     </properties>
   </persistence-unit>
 </persistence>
