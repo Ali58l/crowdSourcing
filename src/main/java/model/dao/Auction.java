@@ -1,26 +1,33 @@
-package controller;
+package model.dao;
 
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "auction")
 public class Auction {
 	
-	 @Id
+	  @Id 
 	  @GeneratedValue
 	  private int id;
-	  private Person personproposed;
+	  @ManyToOne
+	  @JoinColumn(name="person_id", nullable=false, updatable=false)
+	  private Person personProposed;
 	  private String itemName;
 	  private String itemDescription;
 	  private boolean isActive;
 	  private Timestamp creationDate;
 	  private Timestamp updateDate;
 	  private double basePrice;
+	  @ManyToOne
+	  @JoinColumn(name="winner_id", nullable=false, updatable=false)
 	  private Person winner;
 	  private double highestPirce;
 	  private int countProposals;
@@ -31,11 +38,12 @@ public class Auction {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Person getPersonproposed() {
-		return personproposed;
+	
+	public Person getPersonProposed() {
+		return personProposed;
 	}
-	public void setPersonproposed(Person personproposed) {
-		this.personproposed = personproposed;
+	public void setPersonProposed(Person personProposed) {
+		this.personProposed = personProposed;
 	}
 	public String getItemName() {
 		return itemName;

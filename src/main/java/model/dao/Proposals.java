@@ -1,10 +1,12 @@
-package controller;
+package model.dao;
 
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -14,11 +16,15 @@ public class Proposals {
 	 @Id
 	  @GeneratedValue
 	  private int id;
+	 @ManyToOne
+	 @JoinColumn(name="person_id", nullable=false, updatable=false)
 	  private Person person;
-	  private double proposedPrice;
+	  private double basedProposedPrice;
+	  private Category category; 
 	  private Timestamp creationDate;
 	  private Timestamp updatedDate;
 	  private boolean isActive;
+	  
 	public int getId() {
 		return id;
 	}
@@ -30,12 +36,6 @@ public class Proposals {
 	}
 	public void setPerson(Person person) {
 		this.person = person;
-	}
-	public double getProposedPrice() {
-		return proposedPrice;
-	}
-	public void setProposedPrice(double proposedPrice) {
-		this.proposedPrice = proposedPrice;
 	}
 	public Timestamp getCreationDate() {
 		return creationDate;
@@ -55,12 +55,17 @@ public class Proposals {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-	  
-	  
-	  
-	  
-	
-	
-	
+	public double getBasedProposedPrice() {
+		return basedProposedPrice;
+	}
+	public void setBasedProposedPrice(double basedProposedPrice) {
+		this.basedProposedPrice = basedProposedPrice;
+	}
+	public Category getCategory() {
+		return category;
+	}
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 
 }

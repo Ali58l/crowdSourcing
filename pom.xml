@@ -6,6 +6,12 @@
   <packaging>war</packaging>
   
   <dependencies>
+  <dependency>
+	<groupId>javax.mail</groupId>
+	<artifactId>mail</artifactId>
+	<version>1.4</version>
+</dependency>
+  
   <!-- Spring -->
   <dependency>
     <groupId>org.springframework</groupId>
@@ -37,6 +43,12 @@
     <artifactId>hibernate-entitymanager</artifactId>
     <version>4.3.3.Final</version>
   </dependency>
+  <dependency>
+	<groupId>org.hibernate</groupId>
+	<artifactId>hibernate-validator</artifactId>
+	<version>5.2.1.Final</version>
+</dependency>
+  
  
   <!-- Java EE -->
   <dependency>

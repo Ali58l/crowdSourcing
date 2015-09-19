@@ -11,7 +11,7 @@
   <mvc:annotation-driven/>
    
   <!-- Classpath scanning of @Component, @Service, etc annotated class -->
-  <context:component-scan base-package="controller" />
+  <context:component-scan base-package="controller,model,service" />
    
   <!-- Resolve view name into jsp file located on /WEB-INF -->
   <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -22,7 +22,7 @@
   <!-- MySQL Datasource with Commons DBCP connection pooling -->
   <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource">
     <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-    <property name="url" value="jdbc:mysql://localhost:3306/test"/>
+    <property name="url" value="jdbc:mysql://localhost:3306/auctiondb"/>
     <property name="username" value="root"/>
     <property name="password" value=""/>
   </bean>
