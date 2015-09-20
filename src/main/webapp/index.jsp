@@ -8,7 +8,6 @@
 </head>
 <body>
 
-<a href="/auctionbase1/register">Register</a></br></br>
 <a href="/auctionbase1/login">Login</a>
 
 

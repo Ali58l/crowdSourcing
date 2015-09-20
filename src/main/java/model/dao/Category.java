@@ -1,13 +1,14 @@
 package model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Category {
 	
 	List<String> categories;
 	
-	public Category(List<String> categories){
-		
+	public Category(){
+		this.categories = new ArrayList<String>();
 		this.categories.add("Computer");
 		this.categories.add("House");
 		this.categories.add("Education");

@@ -9,6 +9,7 @@
 </head>
 <body>
 Welcome to <c:out value="${person.name}"/>
+<a href="/auctionbase1/logout">logout</a></br></br>
  <h1>Welcome</h1>
   <a href="/auctionbase1/bid">Add Proposal</a></br></br>
 </body>

@@ -1,10 +1,16 @@
 package controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import model.bl.GeneralLogic;
+import model.dao.Category;
 import model.dao.LoginForm;
 import model.dao.Person;
 import model.dao.Proposals;
@@ -38,7 +44,7 @@ public class MakeBidController {
 	 @RequestMapping(method = RequestMethod.GET)
 	   public String login(Model model,HttpServletRequest request) {
 		  model.addAttribute("bid", new Proposals());
-		
+		  initModelList(model);
 		  Person person = new Person();
 		  person = (Person) request.getSession().getAttribute("person") ;
 		  if (person != null || !person.getUsername().equals("")){
@@ -83,6 +89,20 @@ public class MakeBidController {
 		  }
 		 	      
 	   }
-
+	  
+	  private void initModelList(Model model) {
+		  
+		 Category cat = new Category();
+//		List<String> catList = new ArrayList<String>();  
+//        int i = 0 ;
+//		while ( i < catList.size() ){
+//			categories.put(catList.get(i), catList.get(i));
+//			i++;
+//		}
+		 
+		 List<String> catList = new ArrayList<String>();
+		 model.addAttribute("categoryList", cat.returnCategories());
+    }
+	  
 }
 	

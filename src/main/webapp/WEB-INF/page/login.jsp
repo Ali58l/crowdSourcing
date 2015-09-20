@@ -27,6 +27,6 @@
     </tr>
 </table>  
   </form:form>
- 
+ <a href="/auctionbase1/register">Register</a></br></br>
 </body>
 </html>

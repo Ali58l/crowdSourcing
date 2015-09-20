@@ -74,6 +74,13 @@ public class LoginController {
 	   public ModelAndView person() {
 	      return new ModelAndView("index", "command", new Person());
 	   }
+	  
+	  @RequestMapping(value = "/logout", method = RequestMethod.GET)
+	   public String logout(Model model,HttpServletRequest request) {
+		 request.getSession().setAttribute("person", null);
+		  
+	      return ("redirect:/");
+	   }
 
 }
 	

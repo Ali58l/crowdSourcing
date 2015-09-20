@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<h2>Proposal Information</h2>
+<h2>Proposal Information</h2><a href="/auctionbase1/logout">logout</a></br></br>
 <form:form method="POST" action="/auctionbase1/bid/add" commandName="bid">
    <table>
     <tr>
@@ -20,10 +20,13 @@
         <td><form:label path="basedProposedPrice">Base Price($)</form:label></td>
         <td><form:input path="basedProposedPrice" /></td>
     </tr>
-     <tr>
-        <td><form:label path="category">Category</form:label></td>
-        <td><form:input path="category"/></td>
-    </tr>
+    <tr>
+		<td>Category:</td>
+		<td><form:select path="category">
+	  			<form:options items="${categoryList}" />
+	     	</form:select>
+       </td>
+	</tr>
      <tr>
         <td><form:label path="description">Description</form:label></td>
         <td><form:input path="description" /></td>
