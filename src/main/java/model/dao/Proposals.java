@@ -20,9 +20,11 @@ public class Proposals {
 	 @JoinColumn(name="person_id", nullable=false, updatable=false)
 	  private Person person;
 	  private double basedProposedPrice;
-	  private Category category; 
+	  private String proposalName;
+	  private String description;
+	  private String category; 
 	  private Timestamp creationDate;
-	  private Timestamp updatedDate;
+	  private Timestamp updateDate;
 	  private boolean isActive;
 	  
 	public int getId() {
@@ -30,6 +32,20 @@ public class Proposals {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	
+	public String getProposalName() {
+		return proposalName;
+	}
+	public void setProposalName(String proposalName) {
+		this.proposalName = proposalName;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	public Person getPerson() {
 		return person;
@@ -43,11 +59,12 @@ public class Proposals {
 	public void setCreationDate(Timestamp creationDate) {
 		this.creationDate = creationDate;
 	}
-	public Timestamp getUpdatedDate() {
-		return updatedDate;
+	
+	public Timestamp getUpdateDate() {
+		return updateDate;
 	}
-	public void setUpdatedDate(Timestamp updatedDate) {
-		this.updatedDate = updatedDate;
+	public void setUpdateDate(Timestamp updateDate) {
+		this.updateDate = updateDate;
 	}
 	public boolean isActive() {
 		return isActive;
@@ -61,11 +78,10 @@ public class Proposals {
 	public void setBasedProposedPrice(double basedProposedPrice) {
 		this.basedProposedPrice = basedProposedPrice;
 	}
-	public Category getCategory() {
+	public String getCategory() {
 		return category;
 	}
-	public void setCategory(Category category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
-
 }

@@ -1,11 +1,19 @@
 package service;
 
 import java.util.List;
+
 import model.dao.Person;
+
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 	
 @Service
 public class PersonService {
@@ -27,7 +35,41 @@ public class PersonService {
 	   
 	  @Transactional
 	  public void add(Person p) {
-		  System.out.println(p.getName());
 	    em.persist(p);
 	  }
+	  
+	  @Transactional
+	  public Person findPerson(int id) {
+	    Person person = em.find(Person.class,id);
+	    
+	    return person;
+	  }
+	@Transactional
+	public Person findPersonByUsernameAndPassword(String username,String password) {
+
+		Person person = null;
+		try{
+		person = new Person();
+        try {
+        	Query personQuery = em.createQuery("Select p from Person p where p.username = :username and"
+    				+ " p.password = :password and p.isActive = :isActive");
+        	personQuery.setParameter("username", username);
+        	personQuery.setParameter("password", password);
+        	personQuery.setParameter("isActive", true);
+        	
+        	
+    		person = (Person) personQuery.getResultList().get(0);
+        } finally {
+        }
+		
+		return person;
+				
+		}
+		catch(Exception ex){
+			System.out.println(ex.getMessage()+"hi");
+			
+			return person;
+		}
+		
+	}
 }

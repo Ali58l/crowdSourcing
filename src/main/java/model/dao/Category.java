@@ -1,12 +1,25 @@
 package model.dao;
 
+import java.util.List;
+
 public class Category {
 	
-	final static String[] categoriesName={"Computer","House","Education","Intertainment","others"};
+	List<String> categories;
 	
-	public final static String[] returnCategories(){
+	public Category(List<String> categories){
 		
-		return categoriesName;
+		this.categories.add("Computer");
+		this.categories.add("House");
+		this.categories.add("Education");
+		this.categories.add("Intertainment");
+		this.categories.add("Sport");
+		this.categories.add("Health");
+		this.categories.add("Other");
+	}
+	
+	public List<String> returnCategories(){
+		
+		return categories;
 	}
 
 }

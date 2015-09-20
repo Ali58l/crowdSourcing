@@ -8,7 +8,17 @@ import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
+import service.PersonService;
+import model.dao.Person;
+
+@Component
 public class GeneralLogic {
+	
+	 @Autowired private PersonService personSvc;
 	
 	public static Timestamp addTimeStamo(){
 	
@@ -55,4 +65,18 @@ public class GeneralLogic {
 	         mex.printStackTrace();
 	      }
 	}
+
+//	public Person checkLoginValidation(String username, String password) {
+//		Person person = new Person();
+//		if ( username.equals("") || password.equals("")){
+//			return null;
+//		}else{
+//			Person p =personSvc.findPersonByUsernameAndPassword(username,password);
+//			if ( p == null ){
+//				return null;
+//			}else{
+//				return p;
+//			}
+//		}
+//	}
 }
