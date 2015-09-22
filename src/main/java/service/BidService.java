@@ -2,11 +2,13 @@ package service;
 
 import java.util.List;
 
+import model.dao.Auction;
 import model.dao.Person;
 import model.dao.Proposals;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +31,23 @@ public class BidService {
 //	    return result;
 //	  }
 	   
+	  @Transactional
+	  public List<Proposals> getMyBid(Person person) {
+	  try {
+        	Query proposalsQuery = em.createQuery("Select p from Proposals p where p.person.id = :"
+        			+ "personId");
+        	proposalsQuery.setParameter("personId", person.getId());
+        	       	
+       
+    		List<Proposals> proposalsList =  proposalsQuery.getResultList();
+    		
+    		return proposalsList;
+        }catch (Exception exception){
+        	return null;
+        }
+        	
+	  }
+	  
 	  @Transactional
 	  public void add(Proposals p) {
 	    em.persist(p);

@@ -18,20 +18,25 @@ public class Auction {
 	  @GeneratedValue
 	  private int id;
 	  @ManyToOne
-	  @JoinColumn(name="person_id", nullable=false, updatable=false)
+	  @JoinColumn(name="person_id")
 	  private Person personProposed;
 	  private String itemName;
 	  private String itemDescription;
 	  private boolean isActive;
 	  private Timestamp creationDate;
 	  private Timestamp updateDate;
-	  private double basePrice;
-	  @ManyToOne
-	  @JoinColumn(name="winner_id", nullable=false, updatable=false)
-	  private Person winner;
-	  private double highestPirce;
 	  private int countProposals;
+	  @ManyToOne
+	  @JoinColumn(name="proposals_id")
+	  private Proposals proposals;
 	  
+	 
+	public Proposals getProposals() {
+		return proposals;
+	}
+	public void setProposals(Proposals proposal) {
+		this.proposals = proposals;
+	}
 	public int getId() {
 		return id;
 	}
@@ -74,24 +79,6 @@ public class Auction {
 	}
 	public void setUpdateDate(Timestamp updateDate) {
 		this.updateDate = updateDate;
-	}
-	public double getBasePrice() {
-		return basePrice;
-	}
-	public void setBasePrice(double basePrice) {
-		this.basePrice = basePrice;
-	}
-	public Person getWinner() {
-		return winner;
-	}
-	public void setWinner(Person winner) {
-		this.winner = winner;
-	}
-	public double getHighestPirce() {
-		return highestPirce;
-	}
-	public void setHighestPirce(double highestPirce) {
-		this.highestPirce = highestPirce;
 	}
 	public int getCountProposals() {
 		return countProposals;

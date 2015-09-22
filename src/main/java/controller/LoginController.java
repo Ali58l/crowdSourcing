@@ -38,6 +38,19 @@ public class LoginController {
 	      return ("/page/login");
 	   }
 	  
+	  @RequestMapping(value = "/options", method = RequestMethod.GET)
+	   public String goOptionsPage(Model model,HttpServletRequest request) {
+		 // model.addAttribute("loginForm", new LoginForm());
+		  Person person = new Person();
+		  person = (Person) request.getSession().getAttribute("person") ;
+		  if (person != null || !person.getUsername().equals("")){
+			  return ("/page/options");
+		  }else{
+			  return ("redirect:/login");
+		  }
+	   }
+
+	  
 	  
 	  @RequestMapping(value = "/login", method = RequestMethod.POST)
 	   public String addUser(@ModelAttribute LoginForm loginForm,HttpServletRequest request,ModelMap model) {

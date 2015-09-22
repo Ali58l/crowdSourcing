@@ -17,7 +17,7 @@ public class Proposals {
 	  @GeneratedValue
 	  private int id;
 	 @ManyToOne
-	 @JoinColumn(name="person_id", nullable=false, updatable=false)
+	 @JoinColumn(name="person_id")
 	  private Person person;
 	  private double basedProposedPrice;
 	  private String proposalName;
@@ -26,7 +26,25 @@ public class Proposals {
 	  private Timestamp creationDate;
 	  private Timestamp updateDate;
 	  private boolean isActive;
+	  @ManyToOne
+	  @JoinColumn(name="winner_id")
+	  private Person winner;
+	  private double highestPirce;
 	  
+	  
+	  
+	public Person getWinner() {
+		return winner;
+	}
+	public void setWinner(Person winner) {
+		this.winner = winner;
+	}
+	public double getHighestPirce() {
+		return highestPirce;
+	}
+	public void setHighestPirce(double highestPirce) {
+		this.highestPirce = highestPirce;
+	}
 	public int getId() {
 		return id;
 	}
