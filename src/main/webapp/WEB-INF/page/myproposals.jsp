@@ -16,7 +16,8 @@
    
 <div class="alert alert-success" role="alert">
   <h2 class="form-signin-heading">Your Proposals List</h2>
-  <a href="/auctionbase1/logout" ><p align="right">logout</p></a></br></br>
+  <a href="/auctionbase1/logout" ><p align="right">logout</p></a>
+   <a href="/auctionbase1/options" class="navbar-brand"><h4>Options</h4></a>
 </div>
 
 <table class="table">
@@ -44,9 +45,5 @@
 </tbody> 
    
 </table>
-
-<div>
-   <a href="/auctionbase1/options" class="navbar-brand"><h4>Options</h4></a></br></br>
-  </div>
 </body>
 </html>

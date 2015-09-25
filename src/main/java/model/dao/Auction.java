@@ -23,7 +23,6 @@ public class Auction {
 	  private boolean isActive;
 	  private Timestamp creationDate;
 	  private Timestamp updateDate;
-	  private int countProposals;
 	  @ManyToOne
 	  @JoinColumn(name="proposals_id")
 	  private Proposals proposals;
@@ -73,12 +72,4 @@ public class Auction {
 	public void setUpdateDate(Timestamp updateDate) {
 		this.updateDate = updateDate;
 	}
-	public int getCountProposals() {
-		return countProposals;
-	}
-	public void setCountProposals(int countProposals) {
-		this.countProposals = countProposals;
-	}  
-	  
-
 }
