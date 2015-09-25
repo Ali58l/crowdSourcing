@@ -13,7 +13,7 @@
 </head> 
 <body>
 <div class="container-fluid">
-<span class="label label-success">Welcome<c:out value="${person.name}"/></span>
+<span class="label label-success">Welcome  <c:out value="${person.name}"/></span>
 
 <a href="/auctionbase1/logout" ><p align="right">logout</p></a></br></br>
  </br>
@@ -21,10 +21,10 @@
  <div>
   <a href="/auctionbase1/bid" class="alert-link"><h3>Add Proposal</h3></a></br>
   <a href="/auctionbase1/auction/myProposal" class="alert-link"><h3>My Proposals Status</h3></a></br>
-  <a href="/auctionbase1/auction/openProposal" class="alert-link"><h3>Open Proposals</h3></a></br>
+  <a href="/auctionbase1/auction/activeProposal" class="alert-link"><h3>Open Proposals</h3></a></br>
   <a href="/auctionbase1/auction/finalProposal" class="alert-link"><h3>Final Proposals</h3></a></br>
   <a href="/auctionbase1/auction/myProposalInAuction" class="alert-link"><h3>Final Proposals</h3></a></br>
-  
+  </br></br> <a href="#" class="alert-link"><h3>Unregister</h3></a></br>
 </div>
 <div>
   

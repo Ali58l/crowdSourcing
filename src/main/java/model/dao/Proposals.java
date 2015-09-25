@@ -29,21 +29,26 @@ public class Proposals {
 	  @ManyToOne
 	  @JoinColumn(name="winner_id")
 	  private Person winner;
-	  private double highestPirce;
+	  private double highestPrice;
+	  private int countAuctions;
 	  
-	  
-	  
+	public int getCountAuctions() {
+		return countAuctions;
+	}
+	public void setCountAuctions(int countAuctions) {
+		this.countAuctions = countAuctions;
+	}
 	public Person getWinner() {
 		return winner;
 	}
 	public void setWinner(Person winner) {
 		this.winner = winner;
 	}
-	public double getHighestPirce() {
-		return highestPirce;
+	public double getHighestPrice() {
+		return highestPrice;
 	}
-	public void setHighestPirce(double highestPirce) {
-		this.highestPirce = highestPirce;
+	public void setHighestPrice(double highestPrice) {
+		this.highestPrice = highestPrice;
 	}
 	public int getId() {
 		return id;
@@ -84,7 +89,7 @@ public class Proposals {
 	public void setUpdateDate(Timestamp updateDate) {
 		this.updateDate = updateDate;
 	}
-	public boolean isActive() {
+	public boolean getisActive() {
 		return isActive;
 	}
 	public void setActive(boolean isActive) {

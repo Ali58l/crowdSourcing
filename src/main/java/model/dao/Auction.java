@@ -19,9 +19,7 @@ public class Auction {
 	  private int id;
 	  @ManyToOne
 	  @JoinColumn(name="person_id")
-	  private Person personProposed;
-	  private String itemName;
-	  private String itemDescription;
+	  private Person personPriceProposed;
 	  private boolean isActive;
 	  private Timestamp creationDate;
 	  private Timestamp updateDate;
@@ -29,6 +27,7 @@ public class Auction {
 	  @ManyToOne
 	  @JoinColumn(name="proposals_id")
 	  private Proposals proposals;
+	  private double proposedPrice;
 	  
 	 
 	public Proposals getProposals() {
@@ -44,23 +43,17 @@ public class Auction {
 		this.id = id;
 	}
 	
-	public Person getPersonProposed() {
-		return personProposed;
+	public Person getPersonPriceProposed() {
+		return personPriceProposed;
 	}
-	public void setPersonProposed(Person personProposed) {
-		this.personProposed = personProposed;
+	public void setPersonPriceProposed(Person personPriceProposed) {
+		this.personPriceProposed = personPriceProposed;
 	}
-	public String getItemName() {
-		return itemName;
+	public double getProposedPrice() {
+		return proposedPrice;
 	}
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
-	}
-	public String getItemDescription() {
-		return itemDescription;
-	}
-	public void setItemDescription(String itemDescription) {
-		this.itemDescription = itemDescription;
+	public void setProposedPrice(double proposedPrice) {
+		this.proposedPrice = proposedPrice;
 	}
 	public boolean isActive() {
 		return isActive;

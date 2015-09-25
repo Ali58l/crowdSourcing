@@ -2,6 +2,7 @@ package model.bl;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.*;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import service.PersonService;
 import model.dao.Person;
+import model.dao.Proposals;
 
 @Component
 public class GeneralLogic {
@@ -66,7 +68,9 @@ public class GeneralLogic {
 	      }
 	}
 
-//	public Person checkLoginValidation(String username, String password) {
+
+	//public Person checkLoginValidation(String username, String password) {
+	//	return null;
 //		Person person = new Person();
 //		if ( username.equals("") || password.equals("")){
 //			return null;
@@ -78,5 +82,5 @@ public class GeneralLogic {
 //				return p;
 //			}
 //		}
-//	}
+	//}
 }

@@ -77,6 +77,7 @@ public class MakeBidController {
 		      proposal.setUpdateDate(ts);
 		      proposal.setCreationDate(ts);
 		      proposal.setPerson(person);
+		      proposal.setActive(true);
 		    
 		      bidSvc.add(proposal);
 		      GeneralLogic gLogic = new GeneralLogic();

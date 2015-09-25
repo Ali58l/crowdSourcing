@@ -1,5 +1,7 @@
 package service;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import model.dao.Auction;
@@ -52,4 +54,44 @@ public class BidService {
 	  public void add(Proposals p) {
 	    em.persist(p);
 	  }
+
+	  @Transactional
+	  public void checkProposalsStatus() {
+		  Query activeProposalsQuery = em.createQuery("Select p from Proposals p where p.isActive =:"
+	    			+ "isActive");
+	    	activeProposalsQuery.setParameter("isActive", true);
+	    	List<Proposals> activeProposalsList =  activeProposalsQuery.getResultList();
+	    	int i = 0;
+	    	Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+	    	while ( i < activeProposalsList.size() ){
+	    		
+	    		Timestamp updatedTime = activeProposalsList.get(i).getUpdateDate();
+	    		if ( (currentTime.getTime() - updatedTime.getTime()) > 5*60*1000 
+	    				&& activeProposalsList.get(i).getCountAuctions() >0){
+	    			activeProposalsList.get(i).setActive(false);
+	    		}
+	    		else if	(currentTime.getTime() - updatedTime.getTime() > 5*60*1000 
+    				&& activeProposalsList.get(i).getCountAuctions() ==0 ){
+    			activeProposalsList.get(i).setUpdateDate(currentTime);
+	    		}
+	    		em.persist(activeProposalsList.get(i));
+	    		i++;
+	    	}
+	    	
+			
+		}
+	  
+	  @Transactional
+	  public List<Proposals> getActiveBid(Person person) {	
+		Query activeProposalsQuery = em.createQuery("Select p from Proposals p where p.isActive =:"
+    			+ "isActive and p.person.id !=:personId");
+    
+    	activeProposalsQuery.setParameter("isActive", true);
+    	activeProposalsQuery.setParameter("personId", person.getId());
+    	       	
+   
+		List<Proposals> activeProposalsList =  activeProposalsQuery.getResultList();
+		
+		return activeProposalsList;
+	}
 }

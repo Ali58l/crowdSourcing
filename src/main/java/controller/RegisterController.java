@@ -41,10 +41,6 @@ public class RegisterController {
 			   @ModelAttribute ("loginForm") LoginForm loginForm
 			   , Model model ,BindingResult result, SessionStatus status) {
 		  model.addAttribute("person", person);
-		  //	      model.addAttribute("name", person.getName());
-//	      model.addAttribute("username",person.getUsername());
-//	      model.addAttribute("password", person.getPassword());
-//	      model.addAttribute("email", person.getEmail());
 	      person.setActive(true);
 	      Timestamp ts = GeneralLogic.addTimeStamo();
 	      person.setUpdateDate(ts);

@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,6 +43,7 @@ public class AuctionController {
 		  if (person != null || !person.getUsername().equals("")){
 			  
 			  List<Proposals> proposalsList= bidSvc.getMyBid(person);
+			  
 			  model.addAttribute("proposalsList",proposalsList);
 			  
 			  return ("/page/myproposals");
@@ -49,5 +51,24 @@ public class AuctionController {
 			  return ("redirect:/login");
 		  }
 	   }
+	  
+	  @RequestMapping( value="activeProposal",method = RequestMethod.GET)
+	   public String getActiveProposals(Model model,HttpServletRequest request) {
+		  Person person = new Person();
+		  List<Proposals> proposalsList = new ArrayList<Proposals>();
+		  person = (Person) request.getSession().getAttribute("person") ;
+		  if (person != null || !person.getUsername().equals("")){
+			  
+			 bidSvc.checkProposalsStatus();
+			 proposalsList= bidSvc.getActiveBid(person);
+			  
+			  model.addAttribute("proposalsList",proposalsList);
+			  
+			  return ("/page/activeProposals");
+		  }else{
+			  return ("redirect:/login");
+		  }
+	   }
+	  
 }
 	

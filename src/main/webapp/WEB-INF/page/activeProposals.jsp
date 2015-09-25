@@ -10,12 +10,12 @@
              <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" ></script> 
              <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" ></script> 
              <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<title>MyProposals</title>
+<title>Active Proposals</title>
 </head>
 <body>   
    
 <div class="alert alert-success" role="alert">
-  <h2 class="form-signin-heading">Your Proposals List</h2>
+  <h2 class="form-signin-heading">Active Proposals List</h2>
   <a href="/auctionbase1/logout" ><p align="right">logout</p></a></br></br>
 </div>
 
@@ -24,7 +24,8 @@
 <tr> 
 	<th>ID</th>
     <th>Item</th> 
-    <th>Creation Date</th> 
+    <th>Creation Date</th>
+    <th>Update Date</th>  
     <th>Category</th>
     <th>Based Price</th>
     <th>Max Price</th>
@@ -33,9 +34,10 @@
 <tbody> 
     <c:forEach items="${proposalsList}" var="prop"> 
        <tr> 
-        	<td>${prop.id}</td> 
+           <td><a href="#">${prop.id}</a></td> 
            <td>${prop.proposalName}</td> 
            <td>${prop.creationDate}</td> 
+           <td>${prop.updateDate}</td>
            <td>${prop.category}</td>
            <td>${prop.basedProposedPrice}</td> 
            <td>${prop.highestPrice}</td>
