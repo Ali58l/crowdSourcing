@@ -72,4 +72,17 @@ public class PersonService {
 		}
 		
 	}
+
+	public boolean checkUsernameAvailable(String username) {
+		Query personQuery = em.createQuery("Select p from Person p where p.username = :username and"
+				+ " p.isActive = :isActive");
+    	personQuery.setParameter("username", username);
+    	personQuery.setParameter("isActive", true);
+    
+    	if ( personQuery.getResultList().size() >0 ){
+    		return true;
+    	}else{
+    		return false;
+    	}
+	}
 }

@@ -24,11 +24,11 @@
 <div class="form-group">
    <table>
     <tr>
-        <td><form:label path="username"><h4>Username</h4></form:label></td>
+        <td><form:label path="username"><h4>Username </h4></form:label></td>
         <td><form:input path="username" class="form-control"/></td>
     </tr>
     <tr>
-        <td><form:label path="password" ><h4>Password</h4></form:label></td>
+        <td><form:label path="password" ><h4>Password </h4></form:label></td>
         <td><form:input path="password" type="password" class="form-control"/></td>
     </tr>
     <tr>

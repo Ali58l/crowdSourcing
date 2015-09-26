@@ -97,5 +97,39 @@ public class AuctionController {
 		  }
 	   }
 	  
+	  @RequestMapping( value="submitNewAuction")
+	   public String showProposalDetail(Model model, @ModelAttribute("newAuction")Auction newAuction ,HttpServletRequest request
+			   ,BindingResult result) {
+		  Person person = new Person();
+		  List<Proposals> proposalsList = new ArrayList<Proposals>();
+		  person = (Person) request.getSession().getAttribute("person") ;
+		  if (person != null || !person.getUsername().equals("")){
+			  
+			  Timestamp ts = GeneralLogic.addTimeStamo();
+			  Auction auction = new Auction();
+			  auction.setActive(true);
+			  auction.setCreationDate(ts);
+			  auction.setUpdateDate(ts);
+			  auction.setPersonPriceProposed(person);
+			  auction.setProposedPrice(newAuction.getProposedPrice());
+			  auction.setProposals(newAuction.getProposals());
+			  boolean isRegister = bidSvc.addNewAuction(auction);
+			  
+			 //bidSvc.checkProposralStatus(auction.getProposals().getId();
+			 //bidSvc.checkProposedPrice(auction.getProposedPrice());
+			 
+			// proposalsList= bidSvc.getActiveBid(person);
+			
+		  System.out.println(newAuction.getProposedPrice());
+			
+//			  model.addAttribute("maxPrice",maxPriceProposal);
+//			  model.addAttribute("newAuction",new Auction());
+//			
+			  return ("redirect:/options");
+		  }else{
+			  return ("redirect:/login");
+		  }
+	   }
+	  
 }
 	

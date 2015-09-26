@@ -44,20 +44,16 @@
 </table>
 </div>
 <div class="form-signin">
-<div class="alert alert-success" role="alert">
-  <h2 class="form-signin-heading">Please sign in</h2>
-</div>
-
-<form:form method="post" action="/auctionbase1/login" commandName="newAuction" class="navbar-form navbar-left">
+<form:form method="post" action="/auctionbase1/auction/submitNewAuction" commandName="newAuction" class="navbar-form navbar-left">
 <div class="form-group">
    <table>
     <tr>
-        <td><form:label path="newAuction.proposedPrice"><h4>Price</h4></form:label></td>
-        <td><form:input path="newAuction.proposedPrice" class="form-control"/></td>
+        <td><form:label path="proposedPrice"><h4>Price($) </h4></form:label></td>
+        <td><form:input path="proposedPrice" class="form-control"/></td>
     </tr>
     <tr>
         <td colspan="2">
-            <input type="Submit" value="submit Your price" class="btn btn-lg btn-primary btn-block"/>
+            <input type="Submit" value="Submit Your price" class="btn btn-lg btn-primary btn-block"/>
         </td>
     </tr>
 </table>  

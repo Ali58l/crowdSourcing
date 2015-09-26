@@ -40,18 +40,27 @@ public class RegisterController {
 	   public String addUser(@ModelAttribute ("person")	Person person,
 			   @ModelAttribute ("loginForm") LoginForm loginForm
 			   , Model model ,BindingResult result, SessionStatus status) {
-		  model.addAttribute("person", person);
-	      person.setActive(true);
-	      Timestamp ts = GeneralLogic.addTimeStamo();
-	      person.setUpdateDate(ts);
-	      person.setCreationDate(ts);
-	    
-	      personSvc.add(person);
-	      GeneralLogic gLogic = new GeneralLogic();
-	    //  gLogic.sendEmail("Auction Registration", "Welcome To Big Auction/Bid"); 
-	      model.addAttribute("loginForm", loginForm);
-	      //return "redirect:/";
-	      return "/page/login";
+		  
+		  boolean userNameExistance = personSvc.checkUsernameAvailable(person.getUsername());
+	      if (userNameExistance ){		  
+	    	  model.addAttribute("error", "Username is availabe try another one please!");
+	    	  
+	    	  return ("/page/error");
+	      }
+	      else{
+	    	  
+	    	  person.setActive(true);
+		      Timestamp ts = GeneralLogic.addTimeStamo();
+		      person.setUpdateDate(ts);
+		      person.setCreationDate(ts);
+	    	  personSvc.add(person);
+		      
+	    	  GeneralLogic gLogic = new GeneralLogic();
+	  	    //  gLogic.sendEmail("Auction Registration", "Welcome To Big Auction/Bid"); 
+	  	      model.addAttribute("loginForm", loginForm);
+	  	      //return "redirect:/";
+	  	      return "/page/login";
+	      }
 	   }
 
 }

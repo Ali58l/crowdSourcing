@@ -53,7 +53,7 @@ public class LoginController {
 	  
 	  
 	  @RequestMapping(value = "/login", method = RequestMethod.POST)
-	   public String addUser(@ModelAttribute LoginForm loginForm,HttpServletRequest request,ModelMap model) {
+	   public String login(@ModelAttribute LoginForm loginForm,HttpServletRequest request,ModelMap model) {
 		  model.addAttribute("loginForm", loginForm);	      
 	      
 		  Person p = new Person();
@@ -71,17 +71,22 @@ public class LoginController {
 		      }		 	    
 	   }
 		   
-	  @RequestMapping(value = "/addUser", method = RequestMethod.POST)
-	   public String addUser(@ModelAttribute Person person, ModelMap model) {
-	      model.addAttribute("name", person.getName());
-	      model.addAttribute("username",person.getUsername());
-	      model.addAttribute("password", person.getPassword());
-	  
-	      
-	      personSvc.add(person);
-	      
-	      return "redirect:/";
-	   }
+//	  @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+//	   public String addUser(@ModelAttribute Person person, ModelMap model) {
+//	    
+//	      boolean userNameExistance = personSvc.checkUsernameAvailable(person.getUsername());
+//	      if (userNameExistance ){		  
+//	    	  model.addAttribute("error", "Username is availabe try another one please!");
+//	    	  
+//	    	  return "pages/error";
+//	      }
+//	      else{
+//	    	  personSvc.add(person);
+//		      
+//		      return "redirect:/";
+//	      }
+	    	
+//	   }
 	  
 	  @RequestMapping( method = RequestMethod.GET)
 	   public ModelAndView person() {

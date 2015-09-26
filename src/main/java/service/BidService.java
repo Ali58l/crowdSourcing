@@ -109,4 +109,18 @@ public class BidService {
 		  Auction prop = (Auction) selectMaxAuctionQuery.getResultList().get(0);
 		return prop;
 	}
+	 
+	 @Transactional
+	public boolean addNewAuction(Auction auction) {
+		boolean result = false;
+		try{
+			em.persist(auction);
+			result = true;
+		}
+		catch(Exception ex){
+			ex.getMessage();
+		}
+		
+		return result ;
+	}
 }

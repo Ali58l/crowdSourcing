@@ -27,8 +27,8 @@
     <th>Creation Date</th>
     <th>Update Date</th>  
     <th>Category</th>
-    <th>Based Price</th>
-    <th>Max Price</th>
+    <th>Based Price($)</th>
+    <th>Max Price($)</th>
 </tr> 
 </thead> 
 <tbody> 
