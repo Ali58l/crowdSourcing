@@ -65,12 +65,15 @@ public class BidService {
 	    	Timestamp currentTime = new Timestamp(System.currentTimeMillis());
 	    	while ( i < activeProposalsList.size() ){
 	    		
+	    		// replace the commanded line after finishing project!
 	    		Timestamp updatedTime = activeProposalsList.get(i).getUpdateDate();
-	    		if ( (currentTime.getTime() - updatedTime.getTime()) > 5*60*1000 
+	    		//if ( (currentTime.getTime() - updatedTime.getTime()) > 5*60*1000
+	    		if ( (currentTime.getTime() - updatedTime.getTime()) > 50*600*10000
 	    				&& activeProposalsList.get(i).getCountAuctions() >0){
 	    			activeProposalsList.get(i).setActive(false);
 	    		}
-	    		else if	(currentTime.getTime() - updatedTime.getTime() > 5*60*1000 
+	    		//else if	(currentTime.getTime() - updatedTime.getTime() > 5*60*1000 
+	    		else if	(currentTime.getTime() - updatedTime.getTime() > 50*600*10000
     				&& activeProposalsList.get(i).getCountAuctions() ==0 ){
     			activeProposalsList.get(i).setUpdateDate(currentTime);
 	    		}
@@ -93,5 +96,17 @@ public class BidService {
 		List<Proposals> activeProposalsList =  activeProposalsQuery.getResultList();
 		
 		return activeProposalsList;
+	}
+
+	 @Transactional
+	public Auction getMaxProposedPrice(int propid) {
+		  Query selectMaxAuctionQuery = em.createQuery("Select a from Auction a where "
+		  		+ " a.proposals.id =:propid ORDER BY a.proposedPrice desc");
+		  
+		  //selectMaxAuctionQuery.setParameter("isActive", true);
+		  selectMaxAuctionQuery.setParameter("propid", propid);	
+		  selectMaxAuctionQuery.setMaxResults(1);
+		  Auction prop = (Auction) selectMaxAuctionQuery.getResultList().get(0);
+		return prop;
 	}
 }

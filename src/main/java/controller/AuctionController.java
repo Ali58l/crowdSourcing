@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import model.bl.GeneralLogic;
+import model.dao.Auction;
 import model.dao.LoginForm;
 import model.dao.Person;
 import model.dao.Proposals;
@@ -17,8 +18,10 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -65,6 +68,30 @@ public class AuctionController {
 			  model.addAttribute("proposalsList",proposalsList);
 			  
 			  return ("/page/activeProposals");
+		  }else{
+			  return ("redirect:/login");
+		  }
+	   }
+	  
+	  @RequestMapping( value="proposalDetails/{propid}")
+	   public String showProposalDetail(Model model,@PathVariable("propid") int propid
+			   ,HttpServletRequest request) {
+		  Person person = new Person();
+		  List<Proposals> proposalsList = new ArrayList<Proposals>();
+		  person = (Person) request.getSession().getAttribute("person") ;
+		  if (person != null || !person.getUsername().equals("")){
+			  
+			 bidSvc.checkProposalsStatus();
+			// proposalsList= bidSvc.getActiveBid(person);
+			 Auction maxPriceProposal = bidSvc.getMaxProposedPrice(propid);
+			 System.out.println(maxPriceProposal.getProposedPrice());
+			 System.out.println(maxPriceProposal.getProposals().getProposalName());
+			  
+			
+			  model.addAttribute("maxPrice",maxPriceProposal);
+			  model.addAttribute("newAuction",new Auction());
+			
+			  return ("/page/proposalDetails");
 		  }else{
 			  return ("redirect:/login");
 		  }
