@@ -44,6 +44,7 @@ public class LoginController {
 		  Person person = new Person();
 		  person = (Person) request.getSession().getAttribute("person") ;
 		  if (person != null || !person.getUsername().equals("")){
+			  System.out.println("test");
 			  return ("/page/options");
 		  }else{
 			  return ("redirect:/login");
