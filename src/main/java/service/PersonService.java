@@ -2,7 +2,9 @@ package service;
 
 import java.util.List;
 
+import model.dao.Auction;
 import model.dao.Person;
+import model.dao.Proposals;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -73,6 +75,7 @@ public class PersonService {
 		
 	}
 
+	@Transactional
 	public boolean checkUsernameAvailable(String username) {
 		Query personQuery = em.createQuery("Select p from Person p where p.username = :username and"
 				+ " p.isActive = :isActive");
@@ -84,5 +87,54 @@ public class PersonService {
     	}else{
     		return false;
     	}
+	}
+
+	@Transactional
+	public boolean checkUserProposals(Person person) {
+		Query proposalsQuery = em.createQuery("Select p from Proposals p where p.person.id = :"
+    			+ "personId and p.isActive =: isActive");
+    	proposalsQuery.setParameter("personId", person.getId());
+    	proposalsQuery.setParameter("isActive", true);
+    	       	
+   
+		List<Proposals> proposalsList =  proposalsQuery.getResultList();
+		if ( proposalsList.size() > 0 ){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	@Transactional
+	public boolean checkUserAuction(Person person) {
+		  Query selectMaxAuctionQuery = em.createQuery("Select a from Auction a where "
+		  		+ " and a.isActive =: isActive and a.personPriceProposed.id =: personId");
+			  
+			  selectMaxAuctionQuery.setParameter("isActive", true);
+			  selectMaxAuctionQuery.setParameter("personId", person.getId());	
+			  List<Auction> auctionList = selectMaxAuctionQuery.getResultList();
+			  int i = 0;
+			  int countActiveProposalIncludeUser=0;
+			  if ( auctionList.size() > 0 ){
+				  while ( i < auctionList.size() ){
+					  if (auctionList.get(i).getProposals().getisActive() == true )
+					  {
+						  countActiveProposalIncludeUser = 1;
+								  break;
+					  }
+					  i++;
+				  }
+			  }
+			  
+			  if ( countActiveProposalIncludeUser > 0 ){
+				return true;  
+			  }else{
+				  return false;
+			  }
+	}
+	@Transactional
+	public void deleteUser(Person person) {
+		em.remove(person);
+		
 	}
 }

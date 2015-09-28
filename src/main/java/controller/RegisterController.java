@@ -2,6 +2,8 @@ package controller;
 
 import java.sql.Timestamp;
 
+import javax.servlet.http.HttpServletRequest;
+
 import model.bl.GeneralLogic;
 import model.dao.LoginForm;
 import model.dao.Person;
@@ -45,7 +47,7 @@ public class RegisterController {
 	      if (userNameExistance ){		  
 	    	  model.addAttribute("error", "Username is availabe try another one please!");
 	    	  
-	    	  return ("/page/error");
+	    	  return ("/page/registerError");
 	      }
 	      else{
 	    	  
@@ -62,6 +64,28 @@ public class RegisterController {
 	  	      return "/page/login";
 	      }
 	   }
+	  
+	  @RequestMapping(value = "/unregister", method = RequestMethod.POST)
+	   public String unregister( Model model ,HttpServletRequest request, SessionStatus status) {
+		  
+		  Person person = (Person) request.getSession().getAttribute("person") ;
+		  boolean hasActiveProposal = personSvc.checkUserProposals(person);
+		  boolean hasActiveAuction = personSvc.checkUserAuction(person);
+	      if ( !hasActiveProposal && !hasActiveAuction ){		  
+	    	  
+	    	  personSvc.deleteUser(person);
+	    	  request.getSession().setAttribute("person", null);
+	    	  
+	    	  return ("redirect:/");
+	      }
+	      else{
+	    	  model.addAttribute("error", "Currently, you are not eligible for Unregister!");
+ 
+	    	  return ("/page/error");
+	      }
+	   }
+
+	  
 
 }
 	
