@@ -100,13 +100,20 @@ public class BidService {
 
 	 @Transactional
 	public Auction getMaxProposedPrice(int propid) {
+		 
+		 Auction prop = null;
 		  Query selectMaxAuctionQuery = em.createQuery("Select a from Auction a where "
 		  		+ " a.proposals.id =:propid ORDER BY a.proposedPrice desc");
 		  
 		  //selectMaxAuctionQuery.setParameter("isActive", true);
 		  selectMaxAuctionQuery.setParameter("propid", propid);	
 		  selectMaxAuctionQuery.setMaxResults(1);
-		  Auction prop = (Auction) selectMaxAuctionQuery.getResultList().get(0);
+		  if ( selectMaxAuctionQuery.getResultList().size() > 0  ){
+			  
+			  prop = (Auction) selectMaxAuctionQuery.getResultList().get(0);
+		  }
+		  
+		 
 		return prop;
 	}
 	 

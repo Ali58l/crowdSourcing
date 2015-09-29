@@ -91,8 +91,8 @@ public class PersonService {
 
 	@Transactional
 	public boolean checkUserProposals(Person person) {
-		Query proposalsQuery = em.createQuery("Select p from Proposals p where p.person.id = :"
-    			+ "personId and p.isActive =: isActive");
+		Query proposalsQuery = em.createQuery("Select p from Proposals p where p.person.id =:personId"
+				+ " and p.isActive =:isActive");
     	proposalsQuery.setParameter("personId", person.getId());
     	proposalsQuery.setParameter("isActive", true);
     	       	
@@ -107,8 +107,8 @@ public class PersonService {
 	
 	@Transactional
 	public boolean checkUserAuction(Person person) {
-		  Query selectMaxAuctionQuery = em.createQuery("Select a from Auction a where "
-		  		+ " and a.isActive =: isActive and a.personPriceProposed.id =: personId");
+		  Query selectMaxAuctionQuery = em.createQuery("Select a from Auction a where"
+		  		+ " a.isActive =:isActive and a.personPriceProposed.id =:personId");
 			  
 			  selectMaxAuctionQuery.setParameter("isActive", true);
 			  selectMaxAuctionQuery.setParameter("personId", person.getId());	
@@ -132,9 +132,11 @@ public class PersonService {
 				  return false;
 			  }
 	}
+	
 	@Transactional
 	public void deleteUser(Person person) {
-		em.remove(person);
+		
+		em.remove(em.merge(person));
 		
 	}
 }

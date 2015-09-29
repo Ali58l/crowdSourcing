@@ -32,7 +32,7 @@ public class Auction {
 	public Proposals getProposals() {
 		return proposals;
 	}
-	public void setProposals(Proposals proposal) {
+	public void setProposals(Proposals proposals) {
 		this.proposals = proposals;
 	}
 	public int getId() {
@@ -72,4 +72,5 @@ public class Auction {
 	public void setUpdateDate(Timestamp updateDate) {
 		this.updateDate = updateDate;
 	}
+	
 }

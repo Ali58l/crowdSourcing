@@ -13,6 +13,7 @@ import model.dao.Person;
 import model.dao.Proposals;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -30,6 +31,7 @@ import service.PersonService;
 
 @Controller
 @RequestMapping("/auction")
+@Scope("session")
 public class AuctionController {
 
 	 
@@ -77,19 +79,17 @@ public class AuctionController {
 	   public String showProposalDetail(Model model,@PathVariable("propid") int propid
 			   ,HttpServletRequest request) {
 		  Person person = new Person();
-		  List<Proposals> proposalsList = new ArrayList<Proposals>();
 		  person = (Person) request.getSession().getAttribute("person") ;
 		  if (person != null || !person.getUsername().equals("")){
 			  
 			 bidSvc.checkProposalsStatus();
 			// proposalsList= bidSvc.getActiveBid(person);
 			 Auction maxPriceProposal = bidSvc.getMaxProposedPrice(propid);
-			 System.out.println(maxPriceProposal.getProposedPrice());
-			 System.out.println(maxPriceProposal.getProposals().getProposalName());
-			  
 			
+			  request.getSession().setAttribute("oldProposal",maxPriceProposal );
 			  model.addAttribute("maxPrice",maxPriceProposal);
 			  model.addAttribute("newAuction",new Auction());
+			 
 			
 			  return ("/page/proposalDetails");
 		  }else{
@@ -98,7 +98,8 @@ public class AuctionController {
 	   }
 	  
 	  @RequestMapping( value="submitNewAuction")
-	   public String showProposalDetail(Model model, @ModelAttribute("newAuction")Auction newAuction ,HttpServletRequest request
+	   public String addNewAuction(Model model, @ModelAttribute("newAuction")Auction newAuction,
+			   HttpServletRequest request
 			   ,BindingResult result) {
 		  Person person = new Person();
 		  List<Proposals> proposalsList = new ArrayList<Proposals>();
@@ -112,19 +113,10 @@ public class AuctionController {
 			  auction.setUpdateDate(ts);
 			  auction.setPersonPriceProposed(person);
 			  auction.setProposedPrice(newAuction.getProposedPrice());
-			  auction.setProposals(newAuction.getProposals());
+			  Auction oldAuction = (Auction)request.getSession().getAttribute("oldProposal");
+			  auction.setProposals(oldAuction.getProposals());
 			  boolean isRegister = bidSvc.addNewAuction(auction);
-			  
-			 //bidSvc.checkProposralStatus(auction.getProposals().getId();
-			 //bidSvc.checkProposedPrice(auction.getProposedPrice());
-			 
-			// proposalsList= bidSvc.getActiveBid(person);
-			
-		  System.out.println(newAuction.getProposedPrice());
-			
-//			  model.addAttribute("maxPrice",maxPriceProposal);
-//			  model.addAttribute("newAuction",new Auction());
-//			
+		
 			  return ("redirect:/options");
 		  }else{
 			  return ("redirect:/login");

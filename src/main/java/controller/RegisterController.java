@@ -65,7 +65,7 @@ public class RegisterController {
 	      }
 	   }
 	  
-	  @RequestMapping(value = "/unregister", method = RequestMethod.POST)
+	  @RequestMapping(value = "/unregister")
 	   public String unregister( Model model ,HttpServletRequest request, SessionStatus status) {
 		  
 		  Person person = (Person) request.getSession().getAttribute("person") ;

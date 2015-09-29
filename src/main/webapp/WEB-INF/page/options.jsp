@@ -22,9 +22,8 @@
   <a href="/auctionbase1/bid" class="alert-link"><h3>Add Proposal</h3></a>
   <a href="/auctionbase1/auction/myProposal" class="alert-link"><h3>My Proposals Status</h3></a>
   <a href="/auctionbase1/auction/activeProposal" class="alert-link"><h3>Open Proposals</h3></a>
-  <a href="/auctionbase1/auction/finalProposal" class="alert-link"><h3>Final Proposals</h3></a>
-  <a href="/auctionbase1/auction/myProposalInAuction" class="alert-link"><h3>Final Proposals</h3></a>
-  </br> <a href="#" class="alert-link"><h3>Unregister</h3></a></br>
+
+  </br> <a href="/auctionbase1/register/unregister" class="alert-link"><h3>Unregister</h3></a></br>
 </div>
 <div>
   
