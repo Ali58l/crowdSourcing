@@ -47,7 +47,12 @@ public class AuctionController {
 		  person = (Person) request.getSession().getAttribute("person") ;
 		  if (person != null || !person.getUsername().equals("")){
 			  
+			    bidSvc.checkProposalsStatus();  //show  if based on Time/number of auction is active or disactive
+			
 			  List<Proposals> proposalsList= bidSvc.getMyBid(person);
+			//Find winner if it is inactive(first max)
+			  
+			  //Winner is null if it is active + just show maximum
 			  
 			  model.addAttribute("proposalsList",proposalsList);
 			  
@@ -92,6 +97,28 @@ public class AuctionController {
 			 
 			
 			  return ("/page/proposalDetails");
+		  }else{
+			  return ("redirect:/login");
+		  }
+	   }
+	  
+	  @RequestMapping( value="myProposalDetails/{propid}")
+	   public String showMyProposalDetail(Model model,@PathVariable("propid") int propid
+			   ,HttpServletRequest request) {
+		  Person person = new Person();
+		  person = (Person) request.getSession().getAttribute("person") ;
+		  if (person != null || !person.getUsername().equals("")){
+			  
+			// bidSvc.checkProposalsStatus();
+			// proposalsList= bidSvc.getActiveBid(person);
+			 List<Auction> getAllAuctionOfThisProposal = bidSvc.getAuctions(propid);
+			
+			//  request.getSession().setAttribute("oldProposal",maxPriceProposal );
+			  model.addAttribute("auctions",getAllAuctionOfThisProposal);
+			  //model.addAttribute("newAuction",new Auction());
+			 
+			
+			  return ("/page/myProposalDetails");
 		  }else{
 			  return ("redirect:/login");
 		  }

@@ -64,17 +64,18 @@ public class BidService {
 	    	int i = 0;
 	    	Timestamp currentTime = new Timestamp(System.currentTimeMillis());
 	    	while ( i < activeProposalsList.size() ){
-	    		
+	    		long countAuctionOfProposal = getCountAuctionOfProposal(activeProposalsList.get(i));
+	    		System.out.println(activeProposalsList.get(i).getId());
 	    		// replace the commanded line after finishing project!
 	    		Timestamp updatedTime = activeProposalsList.get(i).getUpdateDate();
 	    		//if ( (currentTime.getTime() - updatedTime.getTime()) > 5*60*1000
 	    		if ( (currentTime.getTime() - updatedTime.getTime()) > 50*600*10000
-	    				&& activeProposalsList.get(i).getCountAuctions() >0){
+	    				&& countAuctionOfProposal >0){
 	    			activeProposalsList.get(i).setActive(false);
 	    		}
 	    		//else if	(currentTime.getTime() - updatedTime.getTime() > 5*60*1000 
 	    		else if	(currentTime.getTime() - updatedTime.getTime() > 50*600*10000
-    				&& activeProposalsList.get(i).getCountAuctions() ==0 ){
+    				&& countAuctionOfProposal ==0 ){
     			activeProposalsList.get(i).setUpdateDate(currentTime);
 	    		}
 	    		em.persist(activeProposalsList.get(i));
@@ -85,6 +86,14 @@ public class BidService {
 		}
 	  
 	  @Transactional
+	  private long getCountAuctionOfProposal(Proposals proposals) {
+		  Query countAuctionQuery = em.createQuery("Select count(a) from Auction a where a.proposals.id =:propid");
+		  countAuctionQuery.setParameter("propid", proposals.getId());
+		  
+		return (Long) countAuctionQuery.getSingleResult();
+	}
+
+	@Transactional
 	  public List<Proposals> getActiveBid(Person person) {	
 		Query activeProposalsQuery = em.createQuery("Select p from Proposals p where p.isActive =:"
     			+ "isActive and p.person.id !=:personId");
@@ -129,5 +138,16 @@ public class BidService {
 		}
 		
 		return result ;
+	}
+
+	public List<Auction> getAuctions(int propid) {
+		Query selectAuctionList = em.createQuery("Select a from Auction a where "
+		  		+ " a.proposals.id =:propid ORDER BY a.proposedPrice desc");
+		  
+		  //selectMaxAuctionQuery.setParameter("isActive", true);
+		  selectAuctionList.setParameter("propid", propid);	
+		  List<Auction> auctions = selectAuctionList.getResultList();
+			
+		return auctions;
 	}
 }

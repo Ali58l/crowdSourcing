@@ -10,46 +10,42 @@
              <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" ></script> 
              <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" ></script> 
              <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<title>MyProposals</title>
+<title>My Proposal Details</title>
 </head>
 <body>   
    
 <div class="alert alert-success" role="alert">
-  <h2 class="form-signin-heading">Your Proposals List</h2>
+  <h2 class="form-signin-heading">Proposal Details</h2>
   <a href="/auctionbase1/logout" ><p align="right">logout</p></a>
    <a href="/auctionbase1/options" class="navbar-brand"><h4>Options</h4></a>
 </div>
-
+<div>
 <table class="table">
    <thead> 
 <tr> 
 	<th>ID</th>
     <th>Item</th> 
-    <th>Creation Date</th> 
+    <th>Creation Date</th>
+    <th>Update Date</th>  
     <th>Category</th>
-    <th>Based Price</th>
-<!--     <th>Max Price</th>
-    <th>Active</th>
-    <th>Person With Higher Price</th> -->
-    
+    <th>Is Active</th>
+    <th>Username</th>
+    <th>Max Price</th>
 </tr> 
 </thead> 
-<tbody> 
-    <c:forEach items="${proposalsList}" var="prop"> 
+ <c:forEach items="${auctions}" var="auction"> 
        <tr> 
-    	   <td><a href="/auctionbase1/auction/myProposalDetails/${prop.id}">${prop.id}</a></td>
-        <%-- 	<td>${prop.id}</td> --%> 
-           <td>${prop.proposalName}</td> 
-           <td>${prop.creationDate}</td> 
-           <td>${prop.category}</td>
-           <td>${prop.basedProposedPrice}</td> 
-          <%--  <td>${prop.highestPrice}</td>
-           <td>${prop.isActive}</td>
-           <td>${prop.winner.usename}</td> --%>
+   	       <td><a href="/auctionbase1/auction/myProposalDetails/${prop.id}">${prop.id}</a></td> 
+           <td>${auction.proposals.proposalName}</td> 
+           <td>${auction.proposals.creationDate}</td> 
+           <td>${auction.proposals.updateDate}</td>
+           <td>${auction.proposals.category}</td>
+           <td>${auction.proposals.isActive}</td>
+           <td>${auction.personPriceProposed.username}</td>
+           <td>${auction.proposedPrice}</td>
        </tr> 
    </c:forEach> 
-</tbody> 
-   
+</tbody>
 </table>
-</body>
+</div>
 </html>
