@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import service.PersonService;
 
 @Controller
-@RequestMapping("/")
+//@RequestMapping("/")
 @Scope("session")
 public class LoginController {
 
@@ -42,15 +42,18 @@ public class LoginController {
 	   public String goOptionsPage(Model model,HttpServletRequest request) {
 		 // model.addAttribute("loginForm", new LoginForm());
 		  Person person = new Person();
-		  person = (Person) request.getSession().getAttribute("person") ;
-		  if (person != null || !person.getUsername().equals("")){
-			  return ("/page/options");
-		  }else{
+		  try{
+			  person = (Person) request.getSession().getAttribute("person") ;
+			  if (person != null || !person.getUsername().equals("")){
+				  return ("/page/options");
+			  }else{
+				  return ("redirect:/login");
+			  }
+
+		  } catch(Exception ex){
 			  return ("redirect:/login");
 		  }
-	   }
-
-	  
+		}
 	  
 	  @RequestMapping(value = "/login", method = RequestMethod.POST)
 	   public String login(@ModelAttribute LoginForm loginForm,HttpServletRequest request,ModelMap model) {

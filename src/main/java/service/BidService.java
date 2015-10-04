@@ -65,16 +65,19 @@ public class BidService {
 	    	Timestamp currentTime = new Timestamp(System.currentTimeMillis());
 	    	while ( i < activeProposalsList.size() ){
 	    		long countAuctionOfProposal = getCountAuctionOfProposal(activeProposalsList.get(i));
-	    		System.out.println(activeProposalsList.get(i).getId());
+	    
 	    		// replace the commanded line after finishing project!
 	    		Timestamp updatedTime = activeProposalsList.get(i).getUpdateDate();
 	    		//if ( (currentTime.getTime() - updatedTime.getTime()) > 5*60*1000
-	    		if ( (currentTime.getTime() - updatedTime.getTime()) > 50*600*10000
+	    		System.out.println((currentTime.getTime()- updatedTime.getTime())/(1000*60));
+/*	    		System.out.println(System.currentTimeMillis()+1000*5*60);*/
+	    		
+	    		
+	    		if ( (currentTime.getTime()- updatedTime.getTime())/(1000*60) > 100000
 	    				&& countAuctionOfProposal >0){
 	    			activeProposalsList.get(i).setActive(false);
 	    		}
-	    		//else if	(currentTime.getTime() - updatedTime.getTime() > 5*60*1000 
-	    		else if	(currentTime.getTime() - updatedTime.getTime() > 50*600*10000
+	    		else if	((currentTime.getTime()- updatedTime.getTime())/(1000*60)> 100000
     				&& countAuctionOfProposal ==0 ){
     			activeProposalsList.get(i).setUpdateDate(currentTime);
 	    		}

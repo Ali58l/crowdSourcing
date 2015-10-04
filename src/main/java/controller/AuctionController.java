@@ -44,38 +44,51 @@ public class AuctionController {
 	  @RequestMapping( value="myProposal",method = RequestMethod.GET)
 	   public String getMyProposals(Model model,HttpServletRequest request) {
 		  Person person = new Person();
-		  person = (Person) request.getSession().getAttribute("person") ;
-		  if (person != null || !person.getUsername().equals("")){
-			  
-			    bidSvc.checkProposalsStatus();  //show  if based on Time/number of auction is active or disactive
-			
-			  List<Proposals> proposalsList= bidSvc.getMyBid(person);
-			//Find winner if it is inactive(first max)
-			  
-			  //Winner is null if it is active + just show maximum
-			  
-			  model.addAttribute("proposalsList",proposalsList);
-			  
-			  return ("/page/myproposals");
-		  }else{
-			  return ("redirect:/login");
+		 
+		  try{
+			  person = (Person) request.getSession().getAttribute("person") ;
+			  if (person != null || !person.getUsername().equals("")){
+				  
+				    bidSvc.checkProposalsStatus();  //show  if based on Time/number of auction is active or disactive
+				
+				  List<Proposals> proposalsList= bidSvc.getMyBid(person);
+				//Find winner if it is inactive(first max)
+				  
+				  //Winner is null if it is active + just show maximum
+				  
+				  model.addAttribute("proposalsList",proposalsList);
+				  
+				  return ("/page/myproposals");
+			  }else{
+				  return ("redirect:/login");
+			  }
 		  }
+		  catch(Exception ex){
+			  
+		  }
+		  
+		  return ("redirect:/login");
 	   }
 	  
 	  @RequestMapping( value="activeProposal",method = RequestMethod.GET)
 	   public String getActiveProposals(Model model,HttpServletRequest request) {
 		  Person person = new Person();
 		  List<Proposals> proposalsList = new ArrayList<Proposals>();
-		  person = (Person) request.getSession().getAttribute("person") ;
-		  if (person != null || !person.getUsername().equals("")){
-			  
-			 bidSvc.checkProposalsStatus();
-			 proposalsList= bidSvc.getActiveBid(person);
-			  
-			  model.addAttribute("proposalsList",proposalsList);
-			  
-			  return ("/page/activeProposals");
-		  }else{
+		  try{
+			  person = (Person) request.getSession().getAttribute("person") ;
+			  if (person != null || !person.getUsername().equals("")){
+				  
+					 bidSvc.checkProposalsStatus();
+					 proposalsList= bidSvc.getActiveBid(person);
+					  
+					  model.addAttribute("proposalsList",proposalsList);
+					  
+					  return ("/page/activeProposals");
+				  }else{
+					  return ("redirect:/login");
+				  }
+		  }
+		  catch(Exception ex){
 			  return ("redirect:/login");
 		  }
 	   }
@@ -84,44 +97,54 @@ public class AuctionController {
 	   public String showProposalDetail(Model model,@PathVariable("propid") int propid
 			   ,HttpServletRequest request) {
 		  Person person = new Person();
-		  person = (Person) request.getSession().getAttribute("person") ;
-		  if (person != null || !person.getUsername().equals("")){
-			  
-			 bidSvc.checkProposalsStatus();
-			// proposalsList= bidSvc.getActiveBid(person);
-			 Auction maxPriceProposal = bidSvc.getMaxProposedPrice(propid);
-			
-			  request.getSession().setAttribute("oldProposal",maxPriceProposal );
-			  model.addAttribute("maxPrice",maxPriceProposal);
-			  model.addAttribute("newAuction",new Auction());
-			 
-			
-			  return ("/page/proposalDetails");
-		  }else{
+		  try{
+			  person = (Person) request.getSession().getAttribute("person") ;
+			  if (person != null || !person.getUsername().equals("")){
+				  
+				 bidSvc.checkProposalsStatus();
+				// proposalsList= bidSvc.getActiveBid(person);
+				 Auction maxPriceProposal = bidSvc.getMaxProposedPrice(propid);
+				
+				  request.getSession().setAttribute("oldProposal",maxPriceProposal );
+				  model.addAttribute("maxPrice",maxPriceProposal);
+				  model.addAttribute("newAuction",new Auction());
+				 
+				
+				  return ("/page/proposalDetails");
+			  }else{
+				  return ("redirect:/login");
+			  }
+		  }catch(Exception ex){
 			  return ("redirect:/login");
 		  }
+		 
 	   }
 	  
 	  @RequestMapping( value="myProposalDetails/{propid}")
 	   public String showMyProposalDetail(Model model,@PathVariable("propid") int propid
 			   ,HttpServletRequest request) {
 		  Person person = new Person();
-		  person = (Person) request.getSession().getAttribute("person") ;
-		  if (person != null || !person.getUsername().equals("")){
-			  
-			// bidSvc.checkProposalsStatus();
-			// proposalsList= bidSvc.getActiveBid(person);
-			 List<Auction> getAllAuctionOfThisProposal = bidSvc.getAuctions(propid);
-			
-			//  request.getSession().setAttribute("oldProposal",maxPriceProposal );
-			  model.addAttribute("auctions",getAllAuctionOfThisProposal);
-			  //model.addAttribute("newAuction",new Auction());
-			 
-			
-			  return ("/page/myProposalDetails");
-		  }else{
+		  try{
+			  person = (Person) request.getSession().getAttribute("person") ;
+			  if (person != null || !person.getUsername().equals("")){
+				  
+				// bidSvc.checkProposalsStatus();
+				// proposalsList= bidSvc.getActiveBid(person);
+				 List<Auction> getAllAuctionOfThisProposal = bidSvc.getAuctions(propid);
+				
+				//  request.getSession().setAttribute("oldProposal",maxPriceProposal );
+				  model.addAttribute("auctions",getAllAuctionOfThisProposal);
+				  //model.addAttribute("newAuction",new Auction());
+				 
+				
+				  return ("/page/myProposalDetails");
+			  }else{
+				  return ("redirect:/login");
+			  }
+		  }catch(Exception ex){
 			  return ("redirect:/login");
 		  }
+		  
 	   }
 	  
 	  @RequestMapping( value="submitNewAuction")
@@ -130,24 +153,29 @@ public class AuctionController {
 			   ,BindingResult result) {
 		  Person person = new Person();
 		  List<Proposals> proposalsList = new ArrayList<Proposals>();
-		  person = (Person) request.getSession().getAttribute("person") ;
-		  if (person != null || !person.getUsername().equals("")){
-			  
-			  Timestamp ts = GeneralLogic.addTimeStamo();
-			  Auction auction = new Auction();
-			  auction.setActive(true);
-			  auction.setCreationDate(ts);
-			  auction.setUpdateDate(ts);
-			  auction.setPersonPriceProposed(person);
-			  auction.setProposedPrice(newAuction.getProposedPrice());
-			  Auction oldAuction = (Auction)request.getSession().getAttribute("oldProposal");
-			  auction.setProposals(oldAuction.getProposals());
-			  boolean isRegister = bidSvc.addNewAuction(auction);
-		
-			  return ("redirect:/options");
-		  }else{
+		  try{
+			  person = (Person) request.getSession().getAttribute("person") ;
+			  if (person != null || !person.getUsername().equals("")){
+				  
+				  Timestamp ts = GeneralLogic.addTimeStamo();
+				  Auction auction = new Auction();
+				  auction.setActive(true);
+				  auction.setCreationDate(ts);
+				  auction.setUpdateDate(ts);
+				  auction.setPersonPriceProposed(person);
+				  auction.setProposedPrice(newAuction.getProposedPrice());
+				  Auction oldAuction = (Auction)request.getSession().getAttribute("oldProposal");
+				  auction.setProposals(oldAuction.getProposals());
+				  boolean isRegister = bidSvc.addNewAuction(auction);
+			
+				  return ("redirect:/options");
+			  }else{
+				  return ("redirect:/login");
+			  }
+		  } catch  (Exception ex){
 			  return ("redirect:/login");
 		  }
+		 
 	   }
 	  
 }

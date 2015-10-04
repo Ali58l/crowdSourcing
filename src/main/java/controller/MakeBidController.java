@@ -46,13 +46,18 @@ public class MakeBidController {
 		  model.addAttribute("bid", new Proposals());
 		  initModelList(model);
 		  Person person = new Person();
-		  person = (Person) request.getSession().getAttribute("person") ;
-		  if (person != null || !person.getUsername().equals("")){
-			  return ("/page/bid");
-		  }else{
+		  try{
+			  person = (Person) request.getSession().getAttribute("person") ;
+			  if (person != null || !person.getUsername().equals("")){
+				  return ("/page/bid");
+			  }else{
+				  return ("redirect:/login");
+			  }
+		     
+		  }catch(Exception ex){
 			  return ("redirect:/login");
 		  }
-	     
+		 
 	   }
 
 //	  @RequestMapping( method = RequestMethod.GET)
@@ -70,25 +75,29 @@ public class MakeBidController {
 //	      model.addAttribute("Item Name", proposal.getDescription());
 //	      model.addAttribute("Description", proposal.getDescription());
 	      
-		 Person person = (Person) request.getSession().getAttribute("person") ;
-		  if (person != null || !person.getUsername().equals("")){
-		      proposal.setActive(true);
-		      Timestamp ts = GeneralLogic.addTimeStamo();
-		      proposal.setUpdateDate(ts);
-		      proposal.setCreationDate(ts);
-		      proposal.setPerson(person);
-		      proposal.setActive(true);
-		    
-		      bidSvc.add(proposal);
-		      GeneralLogic gLogic = new GeneralLogic();
-		      
-		      return "redirect:/bid";
+		  try{
+			  Person person = (Person) request.getSession().getAttribute("person") ;
+			  if (person != null || !person.getUsername().equals("")){
+			      proposal.setActive(true);
+			      Timestamp ts = GeneralLogic.addTimeStamo();
+			      proposal.setUpdateDate(ts);
+			      proposal.setCreationDate(ts);
+			      proposal.setPerson(person);
+			      proposal.setActive(true);
+			    
+			      bidSvc.add(proposal);
+			      GeneralLogic gLogic = new GeneralLogic();
+			      
+			      return "redirect:/bid";
 
-		  }else{
-			  request.getSession().setAttribute("person",null);
+			  }else{
+				  request.getSession().setAttribute("person",null);
+				  return ("redirect:/login");
+			  }
+		  }catch(Exception ex){
 			  return ("redirect:/login");
 		  }
-		 	      
+		  		 	      
 	   }
 	  
 	  private void initModelList(Model model) {

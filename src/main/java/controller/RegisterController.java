@@ -41,29 +41,40 @@ public class RegisterController {
 	  @RequestMapping(value = "/add", method = RequestMethod.POST)
 	   public String addUser(@ModelAttribute ("person")	Person person,
 			   @ModelAttribute ("loginForm") LoginForm loginForm
-			   , Model model ,BindingResult result, SessionStatus status) {
+			   , Model model ,HttpServletRequest request,BindingResult result, SessionStatus status) {
 		  
-		  boolean userNameExistance = personSvc.checkUsernameAvailable(person.getUsername());
-	      if (userNameExistance ){		  
-	    	  model.addAttribute("error", "Username is availabe try another one please!");
-	    	  
-	    	  return ("/page/registerError");
-	      }
-	      else{
-	    	  
-	    	  person.setActive(true);
-		      Timestamp ts = GeneralLogic.addTimeStamo();
-		      person.setUpdateDate(ts);
-		      person.setCreationDate(ts);
-	    	  personSvc.add(person);
-		      
-	    	  GeneralLogic gLogic = new GeneralLogic();
-	  	    //  gLogic.sendEmail("Auction Registration", "Welcome To Big Auction/Bid"); 
-	  	      model.addAttribute("loginForm", loginForm);
-	  	      //return "redirect:/";
-	  	      return "/page/login";
-	      }
+		try{
+			
+		  Person person1 = (Person) request.getSession().getAttribute("person") ;
+		  if (person != null || !person.getUsername().equals("")){
+			  boolean userNameExistance = personSvc.checkUsernameAvailable(person.getUsername());
+		      if (userNameExistance ){		  
+		    	  model.addAttribute("error", "Username is availabe try another one please!");
+		    	  
+		    	  return ("/page/registerError");
+		      }
+		      else{
+		    	  
+		    	  person.setActive(true);
+			      Timestamp ts = GeneralLogic.addTimeStamo();
+			      person.setUpdateDate(ts);
+			      person.setCreationDate(ts);
+		    	  personSvc.add(person);
+			      
+		    	  GeneralLogic gLogic = new GeneralLogic();
+		  	    //  gLogic.sendEmail("Auction Registration", "Welcome To Big Auction/Bid"); 
+		  	      model.addAttribute("loginForm", loginForm);
+		  	      //return "redirect:/";
+		  	      return "/page/login";
+		      }
+		  }
+		  else{
+			  return "/page/login";
+		  }
+	   }catch(Exception ex){
+		   return "/page/login";
 	   }
+	  }
 	  
 	  @RequestMapping(value = "/unregister")
 	   public String unregister( Model model ,HttpServletRequest request, SessionStatus status) {

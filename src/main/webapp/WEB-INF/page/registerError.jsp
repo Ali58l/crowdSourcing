@@ -18,7 +18,7 @@
 </div>
   
 <div>
-  <a href="/auctionbase1/login" class="alert-link"><h3>Go Login Page!</h3></a></br></br>
+  <a href="/login" class="alert-link"><h3>Go Login Page!</h3></a></br></br>
 </div>
 
 </body>

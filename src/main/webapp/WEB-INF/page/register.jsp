@@ -10,7 +10,7 @@
 <body>
 
 <h2>User Information</h2>
-<form:form method="POST" action="/auctionbase1/register/add" commandName="person">
+<form:form method="POST" action="/register/add" commandName="person">
    <table>
     <tr>
         <td><form:label path="name">Name</form:label></td>

@@ -20,7 +20,7 @@
   <h2 class="form-signin-heading">Please sign in</h2>
 </div>
 
-<form:form method="post" action="/auctionbase1/login" commandName="loginForm" class="navbar-form navbar-left">
+<form:form method="post" action="/login" commandName="loginForm" class="navbar-form navbar-left">
 <div class="form-group">
    <table>
     <tr>
@@ -42,7 +42,7 @@
   </div>
 </div>
 <div>
-   <a href="/auctionbase1/register" class="navbar-brand"><h4>Register</h4></a></br></br>
+   <a href="/register" class="navbar-brand"><h4>Register</h4></a></br></br>
   </div>
 </body>
 </html>

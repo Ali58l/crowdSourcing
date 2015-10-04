@@ -16,8 +16,8 @@
    
 <div class="alert alert-success" role="alert">
   <h2 class="form-signin-heading">Proposal Details</h2>
-  <a href="/auctionbase1/logout" ><p align="right">logout</p></a>
-   <a href="/auctionbase1/options" class="navbar-brand"><h4>Options</h4></a>
+  <a href="/logout" ><p align="right">logout</p></a>
+   <a href="/options" class="navbar-brand"><h4>Options</h4></a>
 </div>
 <div>
 <table class="table">
@@ -35,7 +35,7 @@
 </thead> 
  <c:forEach items="${auctions}" var="auction"> 
        <tr> 
-   	       <td><a href="/auctionbase1/auction/myProposalDetails/${prop.id}">${prop.id}</a></td> 
+   	       <td><a href="/auction/myProposalDetails/${prop.id}">${prop.id}</a></td> 
            <td>${auction.proposals.proposalName}</td> 
            <td>${auction.proposals.creationDate}</td> 
            <td>${auction.proposals.updateDate}</td>

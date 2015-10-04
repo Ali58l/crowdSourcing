@@ -8,7 +8,7 @@
 </head>
 <body>
 <table>
-<a href="/auctionbase1/login">Login </a>
+<a href="/login">Login </a>
     <tr><td><img src ="images/auctions.jpg" style="width: 96px; height: 53px; "/></td>  </tr>
 </table>
 

@@ -16,8 +16,8 @@
    
 <div class="alert alert-success" role="alert">
   <h2 class="form-signin-heading">Proposal Details</h2>
-  <a href="/auctionbase1/logout" ><p align="right">logout</p></a>
-   <a href="/auctionbase1/options" class="navbar-brand"><h4>Options</h4></a>
+  <a href=/logout" ><p align="right">logout</p></a>
+   <a href="/options" class="navbar-brand"><h4>Options</h4></a>
 </div>
 <div>
 <table class="table">
@@ -44,7 +44,7 @@
 </table>
 </div>
 <div class="form-signin">
-<form:form method="post" action="/auctionbase1/auction/submitNewAuction" commandName="newAuction" class="navbar-form navbar-left">
+<form:form method="post" action="/auction/submitNewAuction" commandName="newAuction" class="navbar-form navbar-left">
 <div class="form-group">
    <table>
     <tr>

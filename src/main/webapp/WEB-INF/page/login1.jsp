@@ -26,6 +26,6 @@
 
 </div> <!-- /container --> 
 
- <a href="/auctionbase1/register">Register</a></br></br>
+ <a href="/register">Register</a></br></br>
 </body>
 </html>

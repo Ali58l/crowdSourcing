@@ -13,13 +13,13 @@
 </head>
 <body>
 <div class="container-fluid"> 
-   <a href="/auctionbase1/logout" ><p align="right">logout</p></a></br></br>
+   <a href="/logout" ><p align="right">logout</p></a></br></br>
 <div class="form-signin">
 <div class="alert alert-success" role="alert">
   <h2 class="form-signin-heading">Register New Item</h2>
 </div>
 
-<form:form method="POST" action="/auctionbase1/bid/add" commandName="bid" class="navbar-form navbar-left">
+<form:form method="POST" action="/bid/add" commandName="bid" class="navbar-form navbar-left">
    <table>
     <tr>
         <td><form:label path="proposalName"><h4>Item</h4></form:label></td>
@@ -49,7 +49,7 @@
 </table>  
 </form:form>
  <div>
-  <a href="/auctionbase1/options" class="alert-link"><h3>Go options page!</h3></a></br></br>
+  <a href="/options" class="alert-link"><h3>Go options page!</h3></a></br></br>
 </div>
 
 </div>
