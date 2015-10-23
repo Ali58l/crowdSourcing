@@ -5,13 +5,14 @@
   xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd	">
  
   <!-- Enable annotation-based Spring MVC controllers (eg: @Controller annotation) -->
   <mvc:annotation-driven/>	
    
   <!-- Classpath scanning of @Component, @Service, etc annotated class -->
   <context:component-scan base-package="controller,model,service" />
+  <mvc:resources mapping="/resources/**" location="main/resources/images/" />
    
   <!-- Resolve view name into jsp file located on /WEB-INF -->
   <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -20,19 +21,19 @@
   </bean>
    
   <!-- MySQL Datasource with Commons DBCP connection pooling -->
-  <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource">
+ <!--  <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource">
     <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
     <property name="url" value="jdbc:mysql://localhost:3306/auctiondb"/>
     <property name="username" value="root"/>
     <property name="password" value=""/>
-  </bean>
+  </bean> -->
    
-   <!-- <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource">
+   <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource">
     <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
     <property name="url" value="jdbc:mysql://commentts-dev.cfynaljl8f95.us-east-1.rds.amazonaws.com/mytest"/>
     <property name="username" value="commenttsdevone"/>
     <property name="password" value="c0mm3nttsd3v0n3"/>
-  </bean> -->
+  </bean>
    
   <!-- EntityManagerFactory -->
   <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">

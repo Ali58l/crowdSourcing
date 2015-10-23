@@ -7,9 +7,11 @@
 <title>Welcome To Auction</title>
 </head>
 <body>
+<img src="/resources/images/auctions.jpg"/>
 <table>
 <a href="/login">Login </a>
-    <tr><td><img src ="images/auctions.jpg" style="width: 96px; height: 53px; "/></td>  </tr>
+
+    <!-- <tr><td><img src="auctions.jpg"/></td>  </tr> -->
 </table>
 
 

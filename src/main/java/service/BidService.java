@@ -73,11 +73,11 @@ public class BidService {
 /*	    		System.out.println(System.currentTimeMillis()+1000*5*60);*/
 	    		
 	    		
-	    		if ( (currentTime.getTime()- updatedTime.getTime())/(1000*60) > 100000
+	    		if (( (currentTime.getTime()- updatedTime.getTime())/(1000*60)) > 5
 	    				&& countAuctionOfProposal >0){
 	    			activeProposalsList.get(i).setActive(false);
 	    		}
-	    		else if	((currentTime.getTime()- updatedTime.getTime())/(1000*60)> 100000
+	    		else if	(((currentTime.getTime()- updatedTime.getTime())/(1000*60))> 5
     				&& countAuctionOfProposal ==0 ){
     			activeProposalsList.get(i).setUpdateDate(currentTime);
 	    		}
@@ -143,6 +143,7 @@ public class BidService {
 		return result ;
 	}
 
+	 @Transactional
 	public List<Auction> getAuctions(int propid) {
 		Query selectAuctionList = em.createQuery("Select a from Auction a where "
 		  		+ " a.proposals.id =:propid ORDER BY a.proposedPrice desc");
@@ -153,4 +154,12 @@ public class BidService {
 			
 		return auctions;
 	}
+	 
+	 @Transactional
+	 public Proposals findProposal(int propid){
+		 
+		 Proposals prop = em.find(Proposals.class,propid);
+		 
+		 return prop;
+	 }
 }

@@ -103,9 +103,12 @@ public class AuctionController {
 				  
 				 bidSvc.checkProposalsStatus();
 				// proposalsList= bidSvc.getActiveBid(person);
-				 Auction maxPriceProposal = bidSvc.getMaxProposedPrice(propid);
+				 Auction maxPriceProposal = new Auction();
+				 maxPriceProposal = bidSvc.getMaxProposedPrice(propid);
+				
 				
 				  request.getSession().setAttribute("oldProposal",maxPriceProposal );
+				  request.getSession().setAttribute("propId",propid );
 				  model.addAttribute("maxPrice",maxPriceProposal);
 				  model.addAttribute("newAuction",new Auction());
 				 
@@ -164,8 +167,10 @@ public class AuctionController {
 				  auction.setUpdateDate(ts);
 				  auction.setPersonPriceProposed(person);
 				  auction.setProposedPrice(newAuction.getProposedPrice());
-				  Auction oldAuction = (Auction)request.getSession().getAttribute("oldProposal");
-				  auction.setProposals(oldAuction.getProposals());
+				//  Auction oldAuction = (Auction)request.getSession().getAttribute("oldProposal");
+				 int  propid = (Integer) request.getSession().getAttribute("propId");
+				  //auction.setProposals(oldAuction.getProposals());
+				  auction.setProposals(bidSvc.findProposal(propid));
 				  boolean isRegister = bidSvc.addNewAuction(auction);
 			
 				  return ("redirect:/options");
@@ -173,6 +178,7 @@ public class AuctionController {
 				  return ("redirect:/login");
 			  }
 		  } catch  (Exception ex){
+			  System.out.println(ex.getMessage());
 			  return ("redirect:/login");
 		  }
 		 
