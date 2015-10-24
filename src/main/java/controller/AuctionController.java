@@ -70,6 +70,67 @@ public class AuctionController {
 		  return ("redirect:/login");
 	   }
 	  
+	  // This provide list of Proposals which user has participated in their Auctions!
+	  @RequestMapping( value="myPaticipatedProposal",method = RequestMethod.GET)
+	   public String getParticipatedProposals(Model model,HttpServletRequest request) {
+		  Person person = new Person();
+		 
+		  try{
+			  person = (Person) request.getSession().getAttribute("person") ;
+			  if (person != null || !person.getUsername().equals("")){
+				  
+				    bidSvc.checkProposalsStatus();  //show  if based on Time/number of auction is active or disactive
+				
+				  List<Proposals> proposalsList= bidSvc.getBidUserParticipate(person);
+				//Find winner if it is inactive(first max)
+				  
+				  //Winner is null if it is active + just show maximum
+				  
+				  model.addAttribute("proposalsList",proposalsList);
+				  
+				  return ("/page/myproposals");
+			  }else{
+				  return ("redirect:/login");
+			  }
+		  }
+		  catch(Exception ex){
+			  
+		  }
+		  
+		  return ("redirect:/login");
+	   }
+	  
+	  // This provide list of Proposals which user has win!
+	  @RequestMapping( value="myWinAuctions",method = RequestMethod.GET)
+	   public String getPersonWinProposals(Model model,HttpServletRequest request) {
+		  Person person = new Person();
+		 
+		  try{
+			  person = (Person) request.getSession().getAttribute("person") ;
+			  if (person != null || !person.getUsername().equals("")){
+				  
+				    bidSvc.checkProposalsStatus();  //show  if based on Time/number of auction is active or disactive
+				
+				  List<Proposals> proposalsList= bidSvc.getFinalBidUserParticipated(person);
+				//Find winner if it is inactive(first max)
+				  
+				  //Winner is null if it is active + just show maximum
+				  
+				  model.addAttribute("proposalsList",proposalsList);
+				  
+				  return ("/page/finalproposals");
+			  }else{
+				  return ("redirect:/login");
+			  }
+		  }
+		  catch(Exception ex){
+			  
+		  }
+		  
+		  return ("redirect:/login");
+	   }
+	  
+	  
 	  @RequestMapping( value="activeProposal",method = RequestMethod.GET)
 	   public String getActiveProposals(Model model,HttpServletRequest request) {
 		  Person person = new Person();
@@ -93,6 +154,7 @@ public class AuctionController {
 		  }
 	   }
 	  
+	  //This method is used for both auction and proposal to see winner!
 	  @RequestMapping( value="proposalDetails/{propid}")
 	   public String showProposalDetail(Model model,@PathVariable("propid") int propid
 			   ,HttpServletRequest request) {
@@ -122,6 +184,39 @@ public class AuctionController {
 		  }
 		 
 	   }
+	  
+	/*  @RequestMapping( value="proposalDetails/{propid}")
+	   public String showWinner(Model model,@PathVariable("propid") int propid
+			   ,HttpServletRequest request) {
+		  Person person = new Person();
+		  try{
+			  person = (Person) request.getSession().getAttribute("person") ;
+			  if (person != null || !person.getUsername().equals("")){
+				  
+				 bidSvc.checkProposalsStatus();
+				// proposalsList= bidSvc.getActiveBid(person);
+				 Auction maxPriceProposal = new Auction();
+				 maxPriceProposal = bidSvc.getMaxProposedPrice(propid);
+				
+				
+				  request.getSession().setAttribute("oldProposal",maxPriceProposal );
+				  request.getSession().setAttribute("propId",propid );
+				  model.addAttribute("maxPrice",maxPriceProposal);
+				  model.addAttribute("newAuction",new Auction());
+				 
+				
+				  return ("/page/proposalDetails");
+			  }else{
+				  return ("redirect:/login");
+			  }
+		  }catch(Exception ex){
+			  return ("redirect:/login");
+		  }
+		 
+	   }*/
+
+	  
+	  
 	  
 	  @RequestMapping( value="myProposalDetails/{propid}")
 	   public String showMyProposalDetail(Model model,@PathVariable("propid") int propid
@@ -181,8 +276,29 @@ public class AuctionController {
 			  System.out.println(ex.getMessage());
 			  return ("redirect:/login");
 		  }
-		 
 	   }
 	  
+	 /* @RequestMapping( value="showUserAuctionStatus")
+	   public String showUserAuctionStatus(Model model, @ModelAttribute("newAuction")Auction newAuction,
+			   HttpServletRequest request
+			   ,BindingResult result) {
+		  Person person = new Person();
+		  try{
+			  person = (Person) request.getSession().getAttribute("person") ;
+			  if (person != null || !person.getUsername().equals("")){
+				  
+				 List<Auction> auctionsList =bidSvc.findUserAuctions(person.getId()); 	
+				 model.addAttribute("auctions",auctionsList);
+			
+				  return ("/page/myAuctions");
+			  }else{
+				  return ("redirect:/login");
+			  }
+		  } catch  (Exception ex){
+			  System.out.println(ex.getMessage());
+			  return ("redirect:/login");
+		  }
+		 
+	   }*/
 }
 	

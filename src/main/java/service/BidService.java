@@ -1,6 +1,7 @@
 package service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -49,6 +50,46 @@ public class BidService {
         }
         	
 	  }
+	  
+	  
+	  @Transactional
+	  public List<Proposals> getBidUserParticipate(Person person) {
+			// TODO Auto-generated method stub
+		  try {
+	        	Query proposalsQuery = em.createQuery("Select p from Proposals p where p.id in "
+	        			+ "(Select a.proposals.id from Auction a where a.personPriceProposed.id = :personId)");
+	        	proposalsQuery.setParameter("personId", person.getId());
+	        	       	
+	       
+	    		List<Proposals> proposalsList =  proposalsQuery.getResultList();
+	    		
+	    		return proposalsList;
+	        }catch (Exception exception){
+	        	System.out.println(exception.getMessage());
+	        	return null;
+	        }
+		}
+	  
+	  
+	// return final proposal which user has participated!
+	  @Transactional
+	  public List<Proposals> getFinalBidUserParticipated(Person person) {
+		  try {
+	        	Query proposalsQuery = em.createQuery("Select p from Proposals p where p.isActive = :isActive and "
+	        			+ "p.id in (Select a.proposals.id from Auction a where a.personPriceProposed.id = :personId)");
+	        	proposalsQuery.setParameter("personId", person.getId());
+	        	proposalsQuery.setParameter("isActive", false);
+	        	       	
+	       
+	    		List<Proposals> proposalsList =  proposalsQuery.getResultList();
+	    		
+	    		return proposalsList;
+	        }catch (Exception exception){
+	        	System.out.println(exception.getMessage());
+	        	return null;
+	        }
+		}
+	  
 	  
 	  @Transactional
 	  public void add(Proposals p) {
@@ -162,4 +203,23 @@ public class BidService {
 		 
 		 return prop;
 	 }
+
+	@Transactional
+	public List<Auction> findUserAuctions(int userId) {
+		Query selectAuctionList = em.createQuery("Select a from Auction a where "
+		  		+ " a.personPriceProposed.id = :userId ORDER BY a.proposedPrice desc");
+		  
+		List<Auction> auctions = new ArrayList<Auction>();
+		try{
+			//selectMaxAuctionQuery.setParameter("isActive", true);
+			  selectAuctionList.setParameter("userId", userId);	
+			  auctions = selectAuctionList.getResultList();  
+		  }
+		  catch(Exception ex){
+			  System.out.println(ex.getMessage());
+		  }
+		  
+		  
+		return auctions;
+	}
 }

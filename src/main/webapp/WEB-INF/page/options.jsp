@@ -22,6 +22,8 @@
   <a href="/bid" class="alert-link"><h3>Add Proposal</h3></a>
   <a href="/auction/myProposal" class="alert-link"><h3>My Proposals Status</h3></a>
   <a href="/auction/activeProposal" class="alert-link"><h3>Open Proposals</h3></a>
+  <a href="/auction/myPaticipatedProposal" class="alert-link"><h3>Your Auction Details</h3></a>
+  <a href="/auction/myWinAuctions" class="alert-link"><h3>Your Win Auction</h3></a>
 
   </br> <a href="/register/unregister" class="alert-link"><h3>Unregister</h3></a></br>
 </div>
