@@ -16,7 +16,7 @@
    
 <div class="alert alert-success" role="alert">
   <h2 class="form-signin-heading">Proposal Details</h2>
-  <a href=/logout" ><p align="right">logout</p></a>
+  <a href="/logout" ><p align="right">logout</p></a>
    <a href="/options" class="navbar-brand"><h4>Options</h4></a>
 </div>
 <div>

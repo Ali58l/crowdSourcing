@@ -10,48 +10,42 @@
              <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" ></script> 
              <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" ></script> 
              <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<title>MyProposals</title>
-
+<title>Proposal Details</title>
 </head>
-
 <body>   
-<h3>Check is you are the winner! </h3>   
+   
 <div class="alert alert-success" role="alert">
-  <h2 class="form-signin-heading">Your Proposals List</h2>
+  <h2 class="form-signin-heading">Proposal Details</h2>
   <a href="/logout" ><p align="right">logout</p></a>
    <a href="/options" class="navbar-brand"><h4>Options</h4></a>
 </div>
-
+<div>
 <table class="table">
    <thead> 
 <tr> 
 	<th>ID</th>
     <th>Item</th> 
-    <th>Creation Date</th> 
+    <th>Creation Date</th>
+    <th>Update Date</th>  
     <th>Category</th>
-    <th>Based Price</th>
-<!--     <th>Max Price</th>
-    <th>Active</th>
-    <th>Person With Higher Price</th> -->
-    
+    <th>Max Price</th>
+    <th>Winner</th>
 </tr> 
 </thead> 
-<tbody> 
-    <c:forEach items="${proposalsList}" var="prop"> 
+<tbody>  
        <tr> 
-    	   <td><a href="/auction/finalWinproposalDetails/${prop.id}">${prop.id}</a></td>
-        <%-- 	<td>${prop.id}</td> --%> 
-           <td>${prop.proposalName}</td> 
-           <td>${prop.creationDate}</td> 
-           <td>${prop.category}</td>
-           <td>${prop.basedProposedPrice}</td> 
-          <%--  <td>${prop.highestPrice}</td>
-           <td>${prop.isActive}</td>
-           <td>${prop.winner.usename}</td> --%>
+           <td>${maxPrice.proposals.id}</a></td> 
+           <td>${maxPrice.proposals.proposalName}</td> 
+           <td>${maxPrice.proposals.creationDate}</td> 
+           <td>${maxPrice.proposals.updateDate}</td>
+           <td>${maxPrice.proposals.category}</td>
+           <td>${maxPrice.proposedPrice}</td> 
+           <td>${maxPrice.personPriceProposed.name}</td>
+           
        </tr> 
-   </c:forEach> 
 </tbody> 
-   
 </table>
+</div>
+</div>
 </body>
 </html>
