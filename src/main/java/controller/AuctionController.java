@@ -216,39 +216,6 @@ public class AuctionController {
 	  
 	  
 	  
-	/*  @RequestMapping( value="proposalDetails/{propid}")
-	   public String showWinner(Model model,@PathVariable("propid") int propid
-			   ,HttpServletRequest request) {
-		  Person person = new Person();
-		  try{
-			  person = (Person) request.getSession().getAttribute("person") ;
-			  if (person != null || !person.getUsername().equals("")){
-				  
-				 bidSvc.checkProposalsStatus();
-				// proposalsList= bidSvc.getActiveBid(person);
-				 Auction maxPriceProposal = new Auction();
-				 maxPriceProposal = bidSvc.getMaxProposedPrice(propid);
-				
-				
-				  request.getSession().setAttribute("oldProposal",maxPriceProposal );
-				  request.getSession().setAttribute("propId",propid );
-				  model.addAttribute("maxPrice",maxPriceProposal);
-				  model.addAttribute("newAuction",new Auction());
-				 
-				
-				  return ("/page/proposalDetails");
-			  }else{
-				  return ("redirect:/login");
-			  }
-		  }catch(Exception ex){
-			  return ("redirect:/login");
-		  }
-		 
-	   }*/
-
-	  
-	  
-	  
 	  @RequestMapping( value="myProposalDetails/{propid}")
 	   public String showMyProposalDetail(Model model,@PathVariable("propid") int propid
 			   ,HttpServletRequest request) {
@@ -308,28 +275,5 @@ public class AuctionController {
 			  return ("redirect:/login");
 		  }
 	   }
-	  
-	 /* @RequestMapping( value="showUserAuctionStatus")
-	   public String showUserAuctionStatus(Model model, @ModelAttribute("newAuction")Auction newAuction,
-			   HttpServletRequest request
-			   ,BindingResult result) {
-		  Person person = new Person();
-		  try{
-			  person = (Person) request.getSession().getAttribute("person") ;
-			  if (person != null || !person.getUsername().equals("")){
-				  
-				 List<Auction> auctionsList =bidSvc.findUserAuctions(person.getId()); 	
-				 model.addAttribute("auctions",auctionsList);
-			
-				  return ("/page/myAuctions");
-			  }else{
-				  return ("redirect:/login");
-			  }
-		  } catch  (Exception ex){
-			  System.out.println(ex.getMessage());
-			  return ("redirect:/login");
-		  }
-		 
-	   }*/
 }
 	

@@ -60,21 +60,9 @@ public class MakeBidController {
 		 
 	   }
 
-//	  @RequestMapping( method = RequestMethod.GET)
-//	   public ModelAndView Bid() {
-//		  
-//		  
-//	      return new ModelAndView("/page/bid", "command", new Proposals());
-//	   }
-	  
 	  
 	  @RequestMapping(value = "/add", method = RequestMethod.POST)
-	   public String addUser(@ModelAttribute Proposals proposal,HttpServletRequest request ,ModelMap model) {
-//	      model.addAttribute("Category", proposal.getCategory());
-//	      model.addAttribute("Base Price",proposal.getBasedProposedPrice());
-//	      model.addAttribute("Item Name", proposal.getDescription());
-//	      model.addAttribute("Description", proposal.getDescription());
-	      
+	   public String addUser(@ModelAttribute Proposals proposal,HttpServletRequest request ,ModelMap model) {	      
 		  try{
 			  Person person = (Person) request.getSession().getAttribute("person") ;
 			  if (person != null || !person.getUsername().equals("")){
@@ -103,13 +91,6 @@ public class MakeBidController {
 	  private void initModelList(Model model) {
 		  
 		 Category cat = new Category();
-//		List<String> catList = new ArrayList<String>();  
-//        int i = 0 ;
-//		while ( i < catList.size() ){
-//			categories.put(catList.get(i), catList.get(i));
-//			i++;
-//		}
-		 
 		 List<String> catList = new ArrayList<String>();
 		 model.addAttribute("categoryList", cat.returnCategories());
     }

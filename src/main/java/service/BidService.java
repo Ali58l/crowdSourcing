@@ -110,17 +110,22 @@ public class BidService {
 	    		// replace the commanded line after finishing project!
 	    		Timestamp updatedTime = activeProposalsList.get(i).getUpdateDate();
 	    		//if ( (currentTime.getTime() - updatedTime.getTime()) > 5*60*1000
+	    		System.out.println((currentTime.getTime()- updatedTime.getTime()));
+	    		System.out.println((currentTime.getTime()- updatedTime.getTime())/(1000*60*5));
 	    		System.out.println((currentTime.getTime()- updatedTime.getTime())/(1000*60));
-/*	    		System.out.println(System.currentTimeMillis()+1000*5*60);*/
+	    		/*	    		System.out.println(System.currentTimeMillis()+1000*5*60);*/
 	    		
 	    		
-	    		if (( (currentTime.getTime()- updatedTime.getTime())/(1000*60)) > 5
+	    		if (( (currentTime.getTime()- updatedTime.getTime())/(1000*60)) >= 5
 	    				&& countAuctionOfProposal >0){
 	    			activeProposalsList.get(i).setActive(false);
 	    		}
-	    		else if	(((currentTime.getTime()- updatedTime.getTime())/(1000*60))> 5
+	    		else if	(((currentTime.getTime()- updatedTime.getTime())/(1000*60))>= 5
     				&& countAuctionOfProposal ==0 ){
     			activeProposalsList.get(i).setUpdateDate(currentTime);
+	    		}
+	    		else if (((currentTime.getTime()- updatedTime.getTime())/(1000*60))< 5 ){
+	    			//activeProposalsList.get(i).setUpdateDate(currentTime);
 	    		}
 	    		em.persist(activeProposalsList.get(i));
 	    		i++;
