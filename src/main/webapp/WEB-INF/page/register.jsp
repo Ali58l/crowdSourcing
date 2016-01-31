@@ -28,7 +28,14 @@
         <td><form:label path="email">Email</form:label></td>
         <td><form:input path="email" /></td>
     </tr>
-    
+     <tr>
+        <td><form:label path="location">Location</form:label></td>
+        <td><form:input path="location" /></td>
+    </tr>
+      <tr>
+        <td><form:label path="worker">Worker</form:label></td>
+        <td><form:checkbox path="worker"/> </td>
+    </tr>
     <tr>
         <td colspan="2">
             <input type="Submit" value="Submit"/>

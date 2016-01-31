@@ -44,8 +44,17 @@ public class LoginController {
 		  Person person = new Person();
 		  try{
 			  person = (Person) request.getSession().getAttribute("person") ;
-			  if (person != null || !person.getUsername().equals("")){
-				  return ("/page/options");
+			  if (person != null || !person.getUsername().equals(""))
+			  {
+				  if ( person.isWorker() == false)
+				  {
+					  return ("/page/options");  
+				  }
+				  else
+				  {
+					  return ("/page/optionsWorker");
+				  }
+				  
 			  }else{
 				  return ("redirect:/login");
 			  }
@@ -62,15 +71,27 @@ public class LoginController {
 		  Person p = new Person();
 			if ( loginForm.getUsername().equals("") || loginForm.getPassword().equals("")){
 				return "redirect:/login";
-			}else{
+			}
+			else
+			{
 				 p =personSvc.findPersonByUsernameAndPassword(loginForm.getUsername(), loginForm.getPassword());
 			}
-			if ( p == null || p.getUsername() == null ||p.getUsername().equals("")){
+			if ( p == null || p.getUsername() == null ||p.getUsername().equals(""))
+			{
 		    	  return "redirect:/login";
 		      }
-		      else{
+		      else
+		      {
 		    	  request.getSession().setAttribute("person",p);
-		    	  return "/page/options";
+		    	  if ( p.isWorker() == false)
+				  {
+					  return ("/page/options");  
+				  }
+				  else
+				  {
+					  return ("/page/optionsWorker");
+				  }
+		    	 // return "/page/options";
 		      }		 	    
 	   }
 		   

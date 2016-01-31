@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Welcome To Auction</title>
+<title>Welcome</title>
 </head>
 <body>
 <img src="/resources/images/auctions.jpg"/>

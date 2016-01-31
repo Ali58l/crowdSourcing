@@ -21,19 +21,19 @@
   </bean>
    
   <!-- MySQL Datasource with Commons DBCP connection pooling -->
- <!--  <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource">
+ <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource">
     <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-    <property name="url" value="jdbc:mysql://localhost:3306/auctiondb"/>
+    <property name="url" value="jdbc:mysql://localhost:3306/crowdb"/>
     <property name="username" value="root"/>
     <property name="password" value=""/>
-  </bean> -->
+  </bean>
    
-   <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource">
+  <!--  <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource">
     <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
     <property name="url" value="jdbc:mysql://commentts-dev.cfynaljl8f95.us-east-1.rds.amazonaws.com/mytest"/>
     <property name="username" value="commenttsdevone"/>
     <property name="password" value="c0mm3nttsd3v0n3"/>
-  </bean>
+  </bean> -->
    
   <!-- EntityManagerFactory -->
   <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">

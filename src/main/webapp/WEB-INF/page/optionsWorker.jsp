@@ -19,9 +19,10 @@
  </br>
  </br>
  <div>
-  <a href="/task/addTask" class="alert-link"><h3>Add Task</h3></a>
-  <a href="/task/showUserActiveTasks" class="alert-link"><h3>Active Tasks</h3></a>
- 
+  <a href="/showSkill" class="alert-link"><h3>Add Skill</h3></a>
+  <a href="/task/seeRequestedTaskForDecision" class="alert-link"><h3>See Job Request</h3></a>
+
+
 </div>
 <div>
   

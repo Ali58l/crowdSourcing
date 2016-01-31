@@ -46,7 +46,8 @@ public class MakeBidController {
 		  model.addAttribute("bid", new Proposals());
 		  initModelList(model);
 		  Person person = new Person();
-		  try{
+		  try
+		  {
 			  person = (Person) request.getSession().getAttribute("person") ;
 			  if (person != null || !person.getUsername().equals("")){
 				  return ("/page/bid");

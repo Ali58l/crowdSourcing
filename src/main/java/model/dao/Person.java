@@ -22,6 +22,35 @@ public class Person {
   private Timestamp updateDate;
   private String username;
   private String password;
+  private String location;
+  private boolean worker;
+  private String accountNumber;
+  
+
+
+	public String getAccountNumber() {
+	return accountNumber;
+}
+
+public void setAccountNumber(String accountNumber) {
+	this.accountNumber = accountNumber;
+}
+
+	public boolean isWorker() {
+	return worker;
+}
+
+public void setWorker(boolean worker) {
+	this.worker = worker;
+}
+
+	public String getLocation() {
+	return location;
+}
+
+public void setLocation(String location) {
+	this.location = location;
+}
 
 	public int getId() {
 		return id;
