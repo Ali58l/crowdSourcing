@@ -69,4 +69,28 @@ public class SkillService {
         	return null;
         }
 	}
+
+	public long checkAvailabilityOfSkillForUser(Person person , String skill) {
+		
+		Query skillsQuery = em.createQuery("Select count(s) from Skills s where s.isActive = :isActive and "
+				+ "s.skill = :skill and s.person.id = :personid");
+    	skillsQuery.setParameter("isActive", true);
+    	skillsQuery.setParameter("personid",person.getId() );
+    	skillsQuery.setParameter("skill",skill );
+    	
+    	long nemuberOfSameSkill = 0;
+    	
+    	try
+    	{
+    		nemuberOfSameSkill =  (Long) skillsQuery.getSingleResult();
+    		
+    	}
+		catch( Exception ex)
+    	{
+			System.out.println(ex.getMessage());
+			
+    	}
+    	
+    	return nemuberOfSameSkill;
+	}
 }

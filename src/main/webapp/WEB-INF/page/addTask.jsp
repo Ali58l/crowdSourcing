@@ -34,7 +34,7 @@
         <td><form:input path="levelSkill" class="form-control" /></td>
     </tr>
      <tr>
-        <td><form:label path=credibility">credibility</h4></form:label></td>
+        <td><form:label path="credibility">Credibility</h4></form:label></td>
         <td><form:input path="credibility" class="form-control" /></td>
     </tr>
     <tr>

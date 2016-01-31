@@ -140,11 +140,26 @@ public class TaskController {
 				  
 				 request.getSession().setAttribute("selectedtaskId",taskid) ;
 				 Tasks task = taskSvc.getTaskById(taskid);
-				 List<Skills> skillsList = skillSvc.getPotentialWorkersForOpenTask(task);
-				
-				 model.addAttribute("skillWorkers",skillsList);
-					
-				  return ("/page/showPotentialWorkersForTask");
+				 
+				 // check if user has already selected and accepted current task workers
+				 long numberOfAcceptedWorkers = taskSvc.getNumberOfAcceptedWorkers(task);
+				 
+				 if ( numberOfAcceptedWorkers >=  task.getMaxWorker() )
+				 {
+					  model.addAttribute("info", " You already hired the number of necessaray workers for this task!");
+			    	  
+			    	  return "/page/userinfo";
+				 }
+				 else
+				 {
+					 List<Skills> skillsList = skillSvc.getPotentialWorkersForOpenTask(task);
+						
+					 model.addAttribute("skillWorkers",skillsList);
+						
+					  return ("/page/showPotentialWorkersForTask");
+				 }
+				 
+				 
 			  }
 			  else
 			  {

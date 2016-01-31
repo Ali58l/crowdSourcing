@@ -84,11 +84,30 @@ public class SkillController {
 //		      }
 		     /* else
 		      {*/
-		    	
-		    	  skills.setActive(true);
-		    	  skills.setPerson(person1);
-		    	  skillSvc.addSkill(skills);
-		    	  return ("redirect:/showSkill"); 
+		long isSkillAlreadyAvailable =  skillSvc.checkAvailabilityOfSkillForUser(person1 , skills.getSkill());
+				
+	//	long isSkillAlreadyAvailable =  0;
+		if ( isSkillAlreadyAvailable > 0)
+		{
+			model.addAttribute("info", " You already register this skill!");
+	    	  
+	    	 return "/page/userinfo";	
+		}
+		else if( skills.getSkill().equals("") )
+		{
+				model.addAttribute("info", " Skill must not be empty!");
+		    	  
+		    	 return "/page/userinfo";	
+		}
+		else
+		{
+			skills.setActive(true);
+		    skills.setPerson(person1);
+			skillSvc.addSkill(skills);
+			
+			return ("redirect:/showSkill");
+		}
+		    	   
 		    	  
 	   }
 		catch(Exception ex)

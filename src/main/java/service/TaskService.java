@@ -116,4 +116,29 @@ public class TaskService {
 			System.out.println(ex.getMessage());
 		}
 	}
+
+	public long getNumberOfAcceptedWorkers(Tasks task) {
+		
+		Query tasksQuery = em.createQuery("Select count(t) from TaskWorker t where t.isActive = :isActive"
+				+ " and t.allocationStatus = :status and t.task.id = :taskid");
+    	tasksQuery.setParameter("isActive", true);
+    	tasksQuery.setParameter("status",1 );
+    	tasksQuery.setParameter("taskid",task.getId() );
+    	
+    	long nemuberOfAcceptedWorker = 0;
+    	
+    	try
+    	{
+    		nemuberOfAcceptedWorker =  (Long) tasksQuery.getSingleResult();
+    		
+    	}
+		catch( Exception ex)
+    	{
+			System.out.println(ex.getMessage());
+			
+    	}
+    	
+    	return nemuberOfAcceptedWorker;
+    	
+	}
 }
