@@ -10,32 +10,28 @@
              <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" ></script> 
              <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" ></script> 
              <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<title>Allocated Users</title>
+<title>Active Tasks</title>
 </head>
 <body>   
    
 <div class="alert alert-success" role="alert">
-  <h2 class="form-signin-heading">Allocated Users</h2>
+  <h2 class="form-signin-heading">Active Tasks</h2>
   <a href="/logout" ><p align="right">logout</p></a>
    <a href="/options" class="navbar-brand"><h4>Options</h4></a>
 </div>
 
 <table class="table">
    <thead> 
-<tr> 
-	<th>Payment</th>
-	<th>Assign Credibility</th>
-    <th>Username</th> 
-    <th>Skill</th>     
+<tr>
+	<th>Items</th> 
+    <th>Skill</th> 
 </tr> 
 </thead> 
 <tbody> 
-    <c:forEach items="${taskworker}" var="tw"> 
+    <c:forEach items="${tasks}" var="t"> 
        <tr> 
-    	   <td><a href="">Payment</a></td>
-    	   <td><a href="/task/assignWorkerCredibility/${tw.id}">Assign Credibility</a></td>
-           <td>${tw.person.username}</td> 
-           <td>${tw.task.skill}</td> 
+    	   <td><a href="/task/showAllocatedWorkers/${t.id}">See Workers' List</a></td>
+           <td>${t.skill}</td> 
        </tr> 
    </c:forEach> 
 </tbody> 

@@ -47,7 +47,7 @@ public class TaskController {
 	   * Everytime invoked, we pass list of all persons to view
 	   */
 	  @RequestMapping( value="/addTask",method = RequestMethod.GET)
-	   public String getMyProposals(Model model,HttpServletRequest request) {
+	   public String addTask(Model model,HttpServletRequest request) {
 		  Person person = new Person();
 		 
 		  try
@@ -115,7 +115,7 @@ public class TaskController {
 				  List<Tasks> tasks = taskSvc.getUserActiveTask(person.getId());
 				  model.addAttribute("tasks",tasks);
 				  
-				  return ("/page/userActiveTasksList");
+				  return ("/page/showUserActiveTasks");
 			  }
 			  else
 			  {
@@ -307,6 +307,55 @@ public class TaskController {
 			  return ("redirect:/login");
 		  } 
 	   }
-	  
+	
+	  @RequestMapping( value="/showAllocatedWorkers/{taskid}")
+	   public String showAllocatedWorkersList(Model model,@PathVariable("taskid") int taskid
+			   ,HttpServletRequest request) {
+		  Person person = new Person();
+		  try{
+			  person = (Person) request.getSession().getAttribute("person") ;
+			  if (person != null || !person.getUsername().equals(""))
+			  {
+				 List<TaskWorker> workersList = taskSvc.showUserActiveTasks(taskid);
+				 
+				 model.addAttribute("taskworker",workersList);
+				 
+				  return ("/page/userActiveTasksList");
+			  }
+			  else
+			  {
+				  return ("redirect:/login");
+			  }
+		  }catch(Exception ex){
+			  return ("redirect:/login");
+		  } 
+	   }
+	
+	  @RequestMapping( value="/assignWorkerCredibility/{twid}")
+	   public String assignCredibility(Model model,@PathVariable("twid") int twid
+			   ,HttpServletRequest request) {
+		  Person person = new Person();
+		 
+		  try
+		  {
+			  person = (Person) request.getSession().getAttribute("person") ;
+			  if (person != null || !person.getUsername().equals("")){
+				  
+				   TaskWorker taskworker = taskSvc.getTaskWorkerById(twid);
+				  model.addAttribute("taskworker",taskworker);
+				  
+				  return ("/page/assignCredibility");
+			  }
+			  else
+			  {
+				  return ("redirect:/login");
+			  }
+		  }
+		  catch(Exception ex){
+			  
+		  }
+		  
+		  return ("redirect:/login");	
+	   }
 	}
 	

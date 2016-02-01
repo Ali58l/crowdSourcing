@@ -1,5 +1,6 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.dao.Auction;
@@ -140,5 +141,26 @@ public class TaskService {
     	
     	return nemuberOfAcceptedWorker;
     	
+	}
+
+	@Transactional
+	public List<TaskWorker> showUserActiveTasks(int taskid) {
+		
+		List<TaskWorker> tasksList = new ArrayList<TaskWorker>();
+	try
+	{
+		Query tasksQuery = em.createQuery("Select t from TaskWorker t where t.task.id = :taskid "
+				+ "and t.isActive = :isActive and t.allocationStatus = :status");
+    	tasksQuery.setParameter("taskid", taskid);
+    	tasksQuery.setParameter("isActive", true);
+    	tasksQuery.setParameter("status", 1);
+	   tasksList =  tasksQuery.getResultList();   
+   }
+   catch( Exception ex)
+   {
+	   System.out.println(ex.getMessage());
+   }
+    
+		return tasksList;	
 	}
 }
