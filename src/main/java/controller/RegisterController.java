@@ -43,7 +43,8 @@ public class RegisterController {
 			   @ModelAttribute ("loginForm") LoginForm loginForm
 			   , Model model ,HttpServletRequest request,BindingResult result, SessionStatus status) {
 		  
-		try{
+		try
+		{
 			
 		  Person person1 = (Person) request.getSession().getAttribute("person") ;
 		  if (person != null || !person.getUsername().equals("")){
@@ -56,6 +57,7 @@ public class RegisterController {
 		      else{
 		    	  
 		    	  person.setActive(true);
+		    	  person.setCredibility(0.5);
 			      Timestamp ts = GeneralLogic.addTimeStamo();
 			      person.setUpdateDate(ts);
 			      person.setCreationDate(ts);

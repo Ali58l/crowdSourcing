@@ -19,7 +19,7 @@
   <h2 class="form-signin-heading">Assign Credibility</h2>
 </div>
 
-<form:form method="POST" action="/task/assignCredibility" commandName="taskworker" class="navbar-form navbar-left">
+<form:form method="POST" action="/task/finalAssignCredibility" commandName="taskworker" class="navbar-form navbar-left">
    <table>
    <tr>
         <td><form:label path="appreciatin">Credibility [0-1]</h4></form:label></td>

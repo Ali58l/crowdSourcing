@@ -163,4 +163,35 @@ public class TaskService {
     
 		return tasksList;	
 	}
+
+	public void updateTaskWorker(TaskWorker taskworker) {
+		
+		try
+		{
+			if (taskworker.getAppreciatin() > 1 )
+			{
+				taskworker.setAppreciatin(1);
+			}
+			if (taskworker.getAppreciatin() < 0 )
+			{
+				taskworker.setAppreciatin(0);
+			}
+			
+			
+			double newCredibility = taskworker.getAppreciatin() 
+					+ taskworker.getPerson().getCredibility();
+					
+			
+			taskworker.getPerson().setCredibility(newCredibility);
+			
+			em.merge(taskworker);
+			
+		}
+		catch( Exception ex)
+		{
+			System.out.println(ex.getMessage());
+		}
+	
+		
+	}
 }

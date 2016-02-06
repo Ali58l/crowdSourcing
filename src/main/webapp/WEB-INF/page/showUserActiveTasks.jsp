@@ -23,14 +23,16 @@
 <table class="table">
    <thead> 
 <tr>
-	<th>Items</th> 
+	<th>Potential Workers</th>
+	<th>Allocated Workers List</th> 
     <th>Skill</th> 
 </tr> 
 </thead> 
 <tbody> 
     <c:forEach items="${tasks}" var="t"> 
        <tr> 
-    	   <td><a href="/task/showAllocatedWorkers/${t.id}">See Workers' List</a></td>
+           <td><a href="/task/showPotentialWorkersList/${t.id}">See Potential Workers</a></td>
+    	   <td><a href="/task/showAllocatedWorkers/${t.id}">See Allocated Workers</a></td>
            <td>${t.skill}</td> 
        </tr> 
    </c:forEach> 

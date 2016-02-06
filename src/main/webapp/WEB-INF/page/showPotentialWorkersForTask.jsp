@@ -33,12 +33,12 @@
 <tbody> 
     <c:forEach items="${skillWorkers}" var="s"> 
        <tr> 
-    	   <td><a href="/task/sendRequestToUser/${s.id}">${s.id}</a></td>
+    	   <td><a href="/task/sendRequestToUser/${s.id}">Send Request</a></td>
         <%-- 	<td>${prop.id}</td> --%> 
            <td>${s.person.username}</td> 
            <td>${s.skill}</td>
            <td>${s.experience}</td> 
-           <td>${s.credibility}</td>  
+           <td>${s.person.credibility}</td>  
        </tr> 
    </c:forEach> 
 </tbody> 

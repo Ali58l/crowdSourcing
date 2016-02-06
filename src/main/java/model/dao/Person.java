@@ -25,10 +25,19 @@ public class Person {
   private String location;
   private boolean worker;
   private String accountNumber;
+  private double credibility;
   
 
 
-	public String getAccountNumber() {
+public double getCredibility() {
+	return credibility;
+}
+
+public void setCredibility(double credibility) {
+	this.credibility = credibility;
+}
+
+public String getAccountNumber() {
 	return accountNumber;
 }
 

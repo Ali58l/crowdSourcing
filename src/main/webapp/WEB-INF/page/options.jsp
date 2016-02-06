@@ -21,7 +21,6 @@
  <div>
   <a href="/task/addTask" class="alert-link"><h3>Add Task</h3></a>
   <a href="/task/showUserActiveTasks" class="alert-link"><h3>Active Tasks</h3></a>
- 
 </div>
 <div>
   

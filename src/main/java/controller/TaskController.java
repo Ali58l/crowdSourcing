@@ -133,7 +133,8 @@ public class TaskController {
 	   public String showProposalDetail(Model model,@PathVariable("taskid") int taskid
 			   ,HttpServletRequest request) {
 		  Person person = new Person();
-		  try{
+		  try
+		  {
 			  person = (Person) request.getSession().getAttribute("person") ;
 			  if (person != null || !person.getUsername().equals(""))
 			  {
@@ -342,6 +343,8 @@ public class TaskController {
 			  if (person != null || !person.getUsername().equals("")){
 				  
 				   TaskWorker taskworker = taskSvc.getTaskWorkerById(twid);
+				   request.getSession().setAttribute("mytaskworker",taskworker) ;
+				   
 				  model.addAttribute("taskworker",taskworker);
 				  
 				  return ("/page/assignCredibility");
@@ -352,6 +355,37 @@ public class TaskController {
 			  }
 		  }
 		  catch(Exception ex){
+			  
+		  }
+		  
+		  return ("redirect:/login");	
+	   }
+	  
+	  @RequestMapping( value="/finalAssignCredibility", method = RequestMethod.POST)
+	   public String finalAssignCredibility(Model model,@ModelAttribute TaskWorker taskworker
+			   ,HttpServletRequest request) {
+		  Person person = new Person();
+		 
+		  try
+		  {
+			  person = (Person) request.getSession().getAttribute("person") ;
+			  if (person != null || !person.getUsername().equals("")){
+				  
+				  TaskWorker mainTaskWorker = (TaskWorker) request.getSession().getAttribute("mytaskworker") ;	
+				  
+				  mainTaskWorker.setAppreciatin(taskworker.getAppreciatin());
+				   taskSvc.updateTaskWorker(mainTaskWorker);
+				  
+				  
+				  return ("/page/options");
+			  }
+			  else
+			  {
+				  return ("redirect:/login");
+			  }
+		  }
+		  catch(Exception ex)
+		  {
 			  
 		  }
 		  
