@@ -145,7 +145,6 @@ public class GeneralLogic {
 		return result;
 	}
 
-
 	public boolean checkIfSkillAlreadyAvailable(long numSkillAlreadyAvailableForWorker) {
 		boolean result = false;
 		if ( numSkillAlreadyAvailableForWorker > 0 )
