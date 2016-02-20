@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import service.BidService;
 import service.PersonService;
 import service.SkillService;
 
@@ -37,7 +36,6 @@ public class SkillController {
 
 	 
 	 @Autowired private PersonService personSvc;
-	 @Autowired private BidService bidSvc;
 	 @Autowired private SkillService skillSvc;
 	  /**
 	   * Requests to http://localhost:8080/hello will be mapped here.
@@ -46,20 +44,28 @@ public class SkillController {
 	  @RequestMapping( value="/showSkill",method = RequestMethod.GET)
 	   public String getMyProposals(Model model,HttpServletRequest request) {
 		  Person person = new Person();
-		
+		  person = (Person) request.getSession().getAttribute("person") ;
+		  	
 		  try
 		  {
-			  person = (Person) request.getSession().getAttribute("person") ;
-			  if (person != null || !person.getUsername().equals("")){
-				  
-				  model.addAttribute("skillForm",new Skills());
-				  
-				  return ("/page/addSkill");
+			  GeneralLogic gl = new GeneralLogic();
+			  String page = "";
+			  boolean isValid = gl.sessionValidationWorker(person);
+			  
+			  if (isValid)
+			  {
+				  Skills skills = new Skills();
+				  model.addAttribute("skillForm", skills);
+				  page = "/page/addSkill";
 			  }
+			  
 			  else
 			  {
-				  return ("redirect:/login");
+				  page = "redirect:/login";
 			  }
+			  
+			  
+			  return page;
 		  }
 		  catch(Exception ex)
 		  {
@@ -74,20 +80,13 @@ public class SkillController {
 		try
 		{	
 		  Person person1 = (Person) request.getSession().getAttribute("person") ;
-		 //if (person != null || !person.getUsername().equals("")){
-			//  boolean userNameExistance = personSvc.checkUsernameAvailable(person.getUsername());
-//		      if (userNameExistance )
-//		      {		  
-//		    	  model.addAttribute("error", "Username is availabe try another one please!");
-//		    	  
-//		    	  return ("/page/registerError");
-//		      }
-		     /* else
-		      {*/
-		long isSkillAlreadyAvailable =  skillSvc.checkAvailabilityOfSkillForUser(person1 , skills.getSkill());
+		
+		long numSkillAlreadyAvailableForWorker =  skillSvc
+				.checkAvailabilityOfSkillForUser(person1 , skills.getSkill());
+		 GeneralLogic gl = new GeneralLogic();
+		boolean isSkillAlreadyAvailable = gl.checkIfSkillAlreadyAvailable( numSkillAlreadyAvailableForWorker);
 				
-	//	long isSkillAlreadyAvailable =  0;
-		if ( isSkillAlreadyAvailable > 0)
+		if ( isSkillAlreadyAvailable )
 		{
 			model.addAttribute("info", " You already register this skill!");
 	    	  
@@ -103,6 +102,7 @@ public class SkillController {
 		{
 			skills.setActive(true);
 		    skills.setPerson(person1);
+		    skills.setCredibility(0.5);
 			skillSvc.addSkill(skills);
 			
 			return ("redirect:/showSkill");
@@ -114,6 +114,5 @@ public class SkillController {
 		{
 		   return "/page/login";
 	   }
-	  }
-	
+	  }	
 }

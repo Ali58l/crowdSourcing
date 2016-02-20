@@ -34,7 +34,7 @@
         <td><form:input path="experience" class="form-control"/></td>
     </tr>
      <tr>
-        <td><form:label path="availabilityTime"><h4> availabilityTime(hr) </h4></form:label></td>
+        <td><form:label path="availabilityTime"><h4> AvailabilityTime(hr) </h4></form:label></td>
         <td><form:input path="availabilityTime" class="form-control"/></td>
     </tr>
     <tr>

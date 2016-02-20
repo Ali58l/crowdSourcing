@@ -53,20 +53,41 @@ public class TaskController {
 		  try
 		  {
 			  person = (Person) request.getSession().getAttribute("person") ;
-			  if (person != null || !person.getUsername().equals("")){
-				  
+			  GeneralLogic gl = new GeneralLogic();
+			  boolean isValid = gl.sessionValidationUser(person);
+			  
+			  if (isValid)
+			  {
 				   Tasks task = new Tasks();
-				  model.addAttribute("addTask",task);
-				  
-				  return ("/page/addTask");
-			  }
+				   // check is user already assign credibility of his perviuos added tasks
+				  // GeneralLogic gl = new GeneralLogic();
+					long numCredebilityareAssiged = taskSvc.checkCredibilityAssignmnedOfUser(person);
+	
+				   boolean isCredebilityareAssiged = gl.checkCredibilityAssignedOfUser(numCredebilityareAssiged);
+				   
+				   if ( isCredebilityareAssiged )
+				   {
+					   model.addAttribute("addTask",task);
+						  
+					  return ("/page/addTask");
+	
+				   }
+				   else
+				   {
+					   model.addAttribute("info", " First, you must assign credeibility of workers "
+					   		+ "assigned to your previous tasks!");
+				    	  
+				    	  return "/page/userinfo";
+				   }
+			 }
 			  else
 			  {
 				  return ("redirect:/login");
 			  }
 		  }
-		  catch(Exception ex){
-			  
+		  catch(Exception ex)
+		  {
+			  System.out.println(ex.getMessage());
 		  }
 		  
 		  return ("redirect:/login");	
@@ -79,7 +100,11 @@ public class TaskController {
 		try
 		{	
 		  Person person1 = (Person) request.getSession().getAttribute("person") ;
-		  if (person1 != null || !person1.getUsername().equals(""))
+		 
+		  GeneralLogic gl = new GeneralLogic();
+		  boolean isValid = gl.sessionValidationUser(person1);
+		  
+		  if (isValid)
 		  {
 			  Timestamp ts = GeneralLogic.addTimeStamo();
 			  	  task.setActive(true);
@@ -122,8 +147,9 @@ public class TaskController {
 				  return ("redirect:/login");
 			  }
 		  }
-		  catch(Exception ex){
-			  
+		  catch(Exception ex)
+		  {
+			  System.out.println(ex.getMessage());  
 		  }
 		  
 		  return ("redirect:/login");
@@ -136,7 +162,10 @@ public class TaskController {
 		  try
 		  {
 			  person = (Person) request.getSession().getAttribute("person") ;
-			  if (person != null || !person.getUsername().equals(""))
+			  GeneralLogic gl = new GeneralLogic();
+			  boolean isValid = gl.sessionValidationUser(person);
+			 
+			  if (isValid)
 			  {
 				  
 				 request.getSession().setAttribute("selectedtaskId",taskid) ;
@@ -144,8 +173,12 @@ public class TaskController {
 				 
 				 // check if user has already selected and accepted current task workers
 				 long numberOfAcceptedWorkers = taskSvc.getNumberOfAcceptedWorkers(task);
+				 int maxNeededWorker = task.getMaxWorker();
 				 
-				 if ( numberOfAcceptedWorkers >=  task.getMaxWorker() )
+				 boolean iSMaxWorkerHiredForThisTask = 
+						 gl.checkIfMaxWorkersAreHired(numberOfAcceptedWorkers,maxNeededWorker);
+				 
+				 if ( iSMaxWorkerHiredForThisTask )
 				 {
 					  model.addAttribute("info", " You already hired the number of necessaray workers for this task!");
 			    	  
@@ -159,8 +192,6 @@ public class TaskController {
 						
 					  return ("/page/showPotentialWorkersForTask");
 				 }
-				 
-				 
 			  }
 			  else
 			  {
@@ -175,9 +206,14 @@ public class TaskController {
 	   public String sendRequestToUser(Model model,@PathVariable("skillid") int skillid
 			   ,HttpServletRequest request) {
 		  Person person = new Person();
-		  try{
+		 
+		  try
+		  {
 			  person = (Person) request.getSession().getAttribute("person") ;
-			  if (person != null || !person.getUsername().equals(""))
+			  GeneralLogic gl = new GeneralLogic();
+			  boolean isValid = gl.sessionValidationUser(person);
+			  
+			  if (isValid)
 			  {
 				  int taskid = (Integer) request.getSession().getAttribute("selectedtaskId") ;
 				  
@@ -211,9 +247,13 @@ public class TaskController {
 	  @RequestMapping( value="/seeRequestedTaskForDecision",method = RequestMethod.GET)
 	   public String seeRequestedTaskForDecision(Model model,HttpServletRequest request) {
 		  Person person = new Person();
-		  try{
+		  try
+		  {
 			  person = (Person) request.getSession().getAttribute("person") ;
-			  if (person != null || !person.getUsername().equals(""))
+			  GeneralLogic gl = new GeneralLogic();
+			  boolean isValid = gl.sessionValidationWorker(person);
+			 
+			  if (isValid)
 			  {
 				  
 				 List<TaskWorker> tasks = taskSvc.showUserTasksForDecision(person.getId());
@@ -237,11 +277,11 @@ public class TaskController {
 		  Person person = new Person();
 		  try{
 			  person = (Person) request.getSession().getAttribute("person") ;
-			  if (person != null || !person.getUsername().equals(""))
+			  GeneralLogic gl = new GeneralLogic();
+			  boolean isValid = gl.sessionValidationWorker(person);
+			 
+			  if (isValid)
 			  {
-				//  int taskid = (Integer) request.getSession().getAttribute("selectedtaskId") ;
-				  
-				// Skills skill = skillSvc.findSkillById(skillid);
 				 TaskWorker taskworker = taskSvc.getTaskWorkerById(taskworkerid);
 				 
 				 model.addAttribute("taskworker",taskworker);
@@ -263,11 +303,11 @@ public class TaskController {
 		  Person person = new Person();
 		  try{
 			  person = (Person) request.getSession().getAttribute("person") ;
-			  if (person != null || !person.getUsername().equals(""))
+			  GeneralLogic gl = new GeneralLogic();
+			  boolean isValid = gl.sessionValidationWorker(person);
+			  
+			  if (isValid)
 			  {
-				//  int taskid = (Integer) request.getSession().getAttribute("selectedtaskId") ;
-				  
-				// Skills skill = skillSvc.findSkillById(skillid);
 				 TaskWorker taskworker = taskSvc.getTaskWorkerById(taskworkerid);
 				 
 				 taskSvc.accepttaskWork(taskworker);
@@ -289,11 +329,11 @@ public class TaskController {
 		  Person person = new Person();
 		  try{
 			  person = (Person) request.getSession().getAttribute("person") ;
-			  if (person != null || !person.getUsername().equals(""))
+			  GeneralLogic gl = new GeneralLogic();
+			  boolean isValid = gl.sessionValidationWorker(person);
+			  
+			  if (isValid)
 			  {
-				//  int taskid = (Integer) request.getSession().getAttribute("selectedtaskId") ;
-				  
-				// Skills skill = skillSvc.findSkillById(skillid);
 				 TaskWorker taskworker = taskSvc.getTaskWorkerById(taskworkerid);
 				 
 				 taskSvc.rejecttaskWork(taskworker);
@@ -315,7 +355,10 @@ public class TaskController {
 		  Person person = new Person();
 		  try{
 			  person = (Person) request.getSession().getAttribute("person") ;
-			  if (person != null || !person.getUsername().equals(""))
+			  GeneralLogic gl = new GeneralLogic();
+			  boolean isValid = gl.sessionValidationUser(person);
+			  
+			  if (isValid)
 			  {
 				 List<TaskWorker> workersList = taskSvc.showUserActiveTasks(taskid);
 				 
@@ -327,7 +370,9 @@ public class TaskController {
 			  {
 				  return ("redirect:/login");
 			  }
-		  }catch(Exception ex){
+		  }
+		  catch(Exception ex)
+		  {
 			  return ("redirect:/login");
 		  } 
 	   }
@@ -340,14 +385,30 @@ public class TaskController {
 		  try
 		  {
 			  person = (Person) request.getSession().getAttribute("person") ;
-			  if (person != null || !person.getUsername().equals("")){
+			  GeneralLogic gl = new GeneralLogic();
+			  boolean isValid = gl.sessionValidationUser(person);
+			 
+			  if (isValid)
+			  {
 				  
 				   TaskWorker taskworker = taskSvc.getTaskWorkerById(twid);
 				   request.getSession().setAttribute("mytaskworker",taskworker) ;
+				   boolean IscredibilityAlreadyAssigned = 
+						   gl.checkCredibilityAssignment(taskworker.getAppreciatin());
 				   
-				  model.addAttribute("taskworker",taskworker);
-				  
-				  return ("/page/assignCredibility");
+				if ( IscredibilityAlreadyAssigned )
+				{
+					 model.addAttribute("info", " You already assign Credebility to this Worker for current Task!");
+					 
+					 return "/page/userinfo";
+				}
+				else
+				{
+					 model.addAttribute("taskworker",taskworker);
+					  
+					  return ("/page/assignCredibility");
+				}
+				 
 			  }
 			  else
 			  {
@@ -369,7 +430,10 @@ public class TaskController {
 		  try
 		  {
 			  person = (Person) request.getSession().getAttribute("person") ;
-			  if (person != null || !person.getUsername().equals("")){
+			  GeneralLogic gl = new GeneralLogic();
+			  boolean isValid = gl.sessionValidationUser(person);
+			  if (isValid)
+			  {
 				  
 				  TaskWorker mainTaskWorker = (TaskWorker) request.getSession().getAttribute("mytaskworker") ;	
 				  

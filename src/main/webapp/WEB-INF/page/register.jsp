@@ -8,6 +8,7 @@
 <title>Register Form</title>
 </head>
 <body>
+   <a href="/login" ><p align="right">Go Login Page</p></a></br></br>
 
 <h2>User Information</h2>
 <form:form method="POST" action="/register/add" commandName="person">

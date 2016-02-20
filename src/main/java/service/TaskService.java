@@ -126,11 +126,11 @@ public class TaskService {
     	tasksQuery.setParameter("status",1 );
     	tasksQuery.setParameter("taskid",task.getId() );
     	
-    	long nemuberOfAcceptedWorker = 0;
+    	long numberOfAcceptedWorker = 0;
     	
     	try
     	{
-    		nemuberOfAcceptedWorker =  (Long) tasksQuery.getSingleResult();
+    		numberOfAcceptedWorker =  (Long) tasksQuery.getSingleResult();
     		
     	}
 		catch( Exception ex)
@@ -139,7 +139,7 @@ public class TaskService {
 			
     	}
     	
-    	return nemuberOfAcceptedWorker;
+    	return numberOfAcceptedWorker;
     	
 	}
 
@@ -154,7 +154,7 @@ public class TaskService {
     	tasksQuery.setParameter("taskid", taskid);
     	tasksQuery.setParameter("isActive", true);
     	tasksQuery.setParameter("status", 1);
-	   tasksList =  tasksQuery.getResultList();   
+	    tasksList =  tasksQuery.getResultList();   
    }
    catch( Exception ex)
    {
@@ -164,6 +164,7 @@ public class TaskService {
 		return tasksList;	
 	}
 
+	@Transactional
 	public void updateTaskWorker(TaskWorker taskworker) {
 		
 		try
@@ -181,9 +182,11 @@ public class TaskService {
 			double newCredibility = taskworker.getAppreciatin() 
 					+ taskworker.getPerson().getCredibility();
 					
+			Person person = taskworker.getPerson();
+			person.setCredibility(newCredibility);
 			
-			taskworker.getPerson().setCredibility(newCredibility);
 			
+			em.merge(person);
 			em.merge(taskworker);
 			
 		}
@@ -193,5 +196,31 @@ public class TaskService {
 		}
 	
 		
+	}
+
+	@Transactional
+	public long checkCredibilityAssignmnedOfUser(Person person) {
+		
+		long result = 0;
+		try
+		{
+			Query tasksQuery = em.createQuery("Select count(t) from TaskWorker t where t.isActive = :isActive"
+					+ " and t.allocationStatus = :status and t.appreciatin = :appreciation and t.task.id in (Select t.id from Tasks t where"
+					+ " t.isActive = :isActive and t.person.id = :personId )");
+	    	tasksQuery.setParameter("isActive", true);
+	    	tasksQuery.setParameter("status", 1);
+	    	tasksQuery.setParameter("personId", person.getId());
+	    	tasksQuery.setParameter("appreciation", 0.0);
+	    	
+	    
+	    	
+		   result =  (Long) tasksQuery.getSingleResult();
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex.getMessage());
+		}
+		
+		return result;
 	}
 }

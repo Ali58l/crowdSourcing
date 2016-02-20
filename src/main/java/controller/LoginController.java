@@ -46,16 +46,12 @@ public class LoginController {
 			  person = (Person) request.getSession().getAttribute("person") ;
 			  if (person != null || !person.getUsername().equals(""))
 			  {
-				  if ( person.isWorker() == false)
-				  {
-					  return ("/page/options");  
-				  }
-				  else
-				  {
-					  return ("/page/optionsWorker");
-				  }
+				  GeneralLogic gl = new GeneralLogic();
+		    	  return gl.isLoginWorker(person);
 				  
-			  }else{
+			  }
+			  else
+			  {
 				  return ("redirect:/login");
 			  }
 
@@ -83,46 +79,21 @@ public class LoginController {
 		      else
 		      {
 		    	  request.getSession().setAttribute("person",p);
-		    	  if ( p.isWorker() == false)
-				  {
-					  return ("/page/options");  
-				  }
-				  else
-				  {
-					  return ("/page/optionsWorker");
-				  }
-		    	 // return "/page/options";
+		    	  GeneralLogic gl = new GeneralLogic();
+		    	  return gl.isLoginWorker(p);
 		      }		 	    
 	   }
-		   
-//	  @RequestMapping(value = "/addUser", method = RequestMethod.POST)
-//	   public String addUser(@ModelAttribute Person person, ModelMap model) {
-//	    
-//	      boolean userNameExistance = personSvc.checkUsernameAvailable(person.getUsername());
-//	      if (userNameExistance ){		  
-//	    	  model.addAttribute("error", "Username is availabe try another one please!");
-//	    	  
-//	    	  return "pages/error";
-//	      }
-//	      else{
-//	    	  personSvc.add(person);
-//		      
-//		      return "redirect:/";
-//	      }
-	    	
-//	   }
-	  
-	  @RequestMapping( method = RequestMethod.GET)
-	   public ModelAndView person() {
-	      return new ModelAndView("index", "command", new Person());
-	   }
-	  
+		   	  
 	  @RequestMapping(value = "/logout", method = RequestMethod.GET)
 	   public String logout(Model model,HttpServletRequest request) {
 		 request.getSession().setAttribute("person", null);
 		  
 	      return ("redirect:/");
 	   }
-
+	  
+	  @RequestMapping( method = RequestMethod.GET)
+	   public ModelAndView person() {
+	      return new ModelAndView("index", "command", new Person());
+	   }
 }
 	

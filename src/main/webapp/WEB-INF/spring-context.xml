@@ -11,7 +11,7 @@
   <mvc:annotation-driven/>	
    
   <!-- Classpath scanning of @Component, @Service, etc annotated class -->
-  <context:component-scan base-package="controller,model,service" />
+  <context:component-scan base-package="controller,model.******,service,model.bl" />
   <mvc:resources mapping="/resources/**" location="main/resources/images/" />
    
   <!-- Resolve view name into jsp file located on /WEB-INF -->

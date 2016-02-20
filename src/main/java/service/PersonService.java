@@ -76,20 +76,18 @@ public class PersonService {
 	}
 
 	@Transactional
-	public boolean checkUsernameAvailable(String username) {
+	public long checkUsernameAvailable(String username) {
 		Query personQuery = em.createQuery("Select p from Person p where p.username = :username and"
 				+ " p.isActive = :isActive");
     	personQuery.setParameter("username", username);
     	personQuery.setParameter("isActive", true);
+    	
+    	long numberOfUserName=  personQuery.getResultList().size();
     
-    	if ( personQuery.getResultList().size() >0 ){
-    		return true;
-    	}else{
-    		return false;
-    	}
+    	return numberOfUserName;
 	}
 
-	@Transactional
+	/*@Transactional
 	public boolean checkUserProposals(Person person) {
 		Query proposalsQuery = em.createQuery("Select p from Proposals p where p.person.id =:personId"
 				+ " and p.isActive =:isActive");
@@ -103,9 +101,9 @@ public class PersonService {
 		}else{
 			return false;
 		}
-	}
+	}*/
 	
-	@Transactional
+/*	@Transactional
 	public boolean checkUserAuction(Person person) {
 		  Query selectMaxAuctionQuery = em.createQuery("Select a from Auction a where"
 		  		+ " a.isActive =:isActive and a.personPriceProposed.id =:personId");
@@ -132,7 +130,7 @@ public class PersonService {
 				  return false;
 			  }
 	}
-	
+*/	
 	@Transactional
 	public void deleteUser(Person person) {
 		

@@ -48,13 +48,19 @@ public class RegisterController {
 			
 		  Person person1 = (Person) request.getSession().getAttribute("person") ;
 		  if (person != null || !person.getUsername().equals("")){
-			  boolean userNameExistance = personSvc.checkUsernameAvailable(person.getUsername());
-		      if (userNameExistance ){		  
+			  long  numUserNameExistance = personSvc.checkUsernameAvailable(person.getUsername());
+			  GeneralLogic gl = new GeneralLogic();
+			  boolean isUserNameExistance = gl.checkIfUserNameExist(numUserNameExistance);
+			  
+			  
+		      if ( isUserNameExistance )
+		      {		  
 		    	  model.addAttribute("error", "Username is availabe try another one please!");
 		    	  
 		    	  return ("/page/registerError");
 		      }
-		      else{
+		      else
+		      {
 		    	  
 		    	  person.setActive(true);
 		    	  person.setCredibility(0.5);
@@ -78,7 +84,7 @@ public class RegisterController {
 	   }
 	  }
 	  
-	  @RequestMapping(value = "/unregister")
+	 /* @RequestMapping(value = "/unregister")
 	   public String unregister( Model model ,HttpServletRequest request, SessionStatus status) {
 		  
 		  Person person = (Person) request.getSession().getAttribute("person") ;
@@ -98,7 +104,6 @@ public class RegisterController {
 	      }
 	   }
 
-	  
-
+*/	  
 }
 	
