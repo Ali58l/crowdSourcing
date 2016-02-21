@@ -3,6 +3,7 @@ package crowdsource;
 import static org.junit.Assert.*;
 import model.bl.GeneralLogic;
 import model.dao.Person;
+import model.dao.TaskWorker;
 
 import org.junit.Test;
 import org.springframework.ui.Model;
@@ -10,6 +11,28 @@ import org.springframework.ui.Model;
 import controller.LoginController;
 
 public class LogicTest {
+
+	
+	@Test
+	public void checkPaymentTest() {
+		
+		GeneralLogic gl = new GeneralLogic();
+		double payment = 2;
+		boolean result = gl.checkPayment(payment);
+		
+		assertSame(result,true);
+	}
+	
+	@Test
+	public void checkNotPaymentTest() {
+		
+		GeneralLogic gl = new GeneralLogic();
+		double payment = 0;
+		boolean result = gl.checkPayment(payment);
+		
+		assertSame(result,false);
+	}
+	
 
 	@Test
 	public void checkCredibilityAsignmentTest() {

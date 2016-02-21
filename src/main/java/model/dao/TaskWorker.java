@@ -87,8 +87,4 @@ public double getAppreciatin() {
 public void setAppreciatin(double appreciatin) {
 	this.appreciatin = appreciatin;
 }
-  
-  
-  
-  
 }

@@ -455,5 +455,49 @@ public class TaskController {
 		  
 		  return ("redirect:/login");	
 	   }
-	}
+	  
+	  @RequestMapping( value="/pay/{twid}")
+	   public String pay(Model model,@PathVariable("twid") int twid
+			   ,HttpServletRequest request) {
+		  Person person = new Person();
+		 
+		  try
+		  {
+			  person = (Person) request.getSession().getAttribute("person") ;
+			  GeneralLogic gl = new GeneralLogic();
+			  boolean isValid = gl.sessionValidationUser(person);
+			 
+			  if (isValid)
+			  {
+				   TaskWorker taskworker = taskSvc.getTaskWorkerById(twid);
+				   request.getSession().setAttribute("mytaskworker",taskworker) ;
+				   boolean isPaymentAlreadyAssigned = 
+						   gl.checkPayment(taskworker.getSalaryPaid());		   
+				    
+				if ( isPaymentAlreadyAssigned )
+				{
+					 model.addAttribute("info", " You already Paid to this Worker for current Task!");
+					
+					 return "/page/userinfo";
+				}
+				else
+				{
+					 model.addAttribute("taskworker",taskworker);
+					  
+					  return ("/page/payment");
+				}
+				 
+			  }
+			  else
+			  {
+				  return ("redirect:/login");
+			  }
+		  }
+		  catch(Exception ex){
+			  
+		  }
+		  
+		  return ("redirect:/login");	
+	   }
+}
 	

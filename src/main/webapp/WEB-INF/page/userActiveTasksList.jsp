@@ -32,7 +32,7 @@
 <tbody> 
     <c:forEach items="${taskworker}" var="tw"> 
        <tr> 
-    	   <td><a href="">Payment</a></td>
+    	   <td><a href="/task/pay/${tw.id}">Payment</a></td>
     	   <td><a href="/task/assignWorkerCredibility/${tw.id}">Assign Credibility</a></td>
            <td>${tw.person.username}</td> 
            <td>${tw.task.skill}</td> 

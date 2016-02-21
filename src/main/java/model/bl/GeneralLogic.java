@@ -21,6 +21,7 @@ import service.TaskService;
 import model.dao.Person;
 import model.dao.Proposals;
 import model.dao.Skills;
+import model.dao.TaskWorker;
 
 @Component
 @Scope("session")
@@ -158,6 +159,16 @@ public class GeneralLogic {
 	public boolean checkIfUserNameExist(long numUserNameExistance) {
 		 boolean result = false;
 		if ( numUserNameExistance > 0 )
+		{
+			result = true;
+		}
+		return result;
+	}
+
+
+	public boolean checkPayment(double payment) {
+		boolean result = false;
+		if ( payment > 0 )
 		{
 			result = true;
 		}
