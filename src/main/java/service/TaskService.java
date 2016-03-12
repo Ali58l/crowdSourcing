@@ -93,6 +93,23 @@ public class TaskService {
 	}
 	
 	@Transactional
+	public void paySalary(int taskworkerid) {
+		
+		try
+		{
+			TaskWorker taskWorker = em.find(TaskWorker.class, taskworkerid);
+			taskWorker.setSalaryPaid(taskWorker.getTask().getLimitBudgetPerUser());
+			
+			em.merge(taskWorker);
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex.getMessage());
+		}		
+	}
+
+
+	@Transactional
 	public void accepttaskWork(TaskWorker taskworker) {
 		try
 		{

@@ -441,7 +441,8 @@ public class TaskController {
 				   taskSvc.updateTaskWorker(mainTaskWorker);
 				  
 				  
-				  return ("/page/options");
+				  
+				   return ("/page/options");
 			  }
 			  else
 			  {
@@ -450,7 +451,7 @@ public class TaskController {
 		  }
 		  catch(Exception ex)
 		  {
-			  
+			  System.out.println(ex.getMessage());
 		  }
 		  
 		  return ("redirect:/login");	
@@ -482,9 +483,11 @@ public class TaskController {
 				}
 				else
 				{
+					
+					 taskSvc.paySalary(twid);
 					 model.addAttribute("taskworker",taskworker);
 					  
-					  return ("/page/payment");
+					  return ("/page/paypal");
 				}
 				 
 			  }
